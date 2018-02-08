@@ -53,6 +53,14 @@ module.exports = {
   performance: {
     hints: false
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'API_BASE_PATH': JSON.stringify(process.env.API_BASE_PATH),
+        'AUTHORIZATION': JSON.stringify(process.env.AUTHORIZATION)
+      }
+    })
+  ],
   devtool: '#eval-source-map'
 }
 
