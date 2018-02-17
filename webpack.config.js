@@ -57,7 +57,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         'API_BASE_PATH': JSON.stringify(process.env.API_BASE_PATH),
-        'AUTHORIZATION': JSON.stringify(process.env.AUTHORIZATION)
+        'API_AUTHORIZATION': JSON.stringify(process.env.API_AUTHORIZATION)
       }
     })
   ],
