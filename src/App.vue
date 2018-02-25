@@ -17,11 +17,9 @@
     </v-toolbar>
 
     <v-content>
-      <v-layout wrap v-if='!isError'>
-        <v-flex xs6 sm4 md4 v-for='(issue, index) in issues' :key='issue.issueKey.key'>
-          <j-issue v-model='issues[index]'></j-issue>
-        </v-flex>
-      </v-layout>
+      <div v-if='!isError' class="j-print">
+        <j-issue v-for='(issue, index) in issues' :key='issue.issueKey.key' :item='issue' v-model='issues[index]'></j-issue>
+      </div>
       <v-layout align-center v-if='isError'>
         <v-alert type="error" :value="isError">
           There is something wrong when the application send the request to server
@@ -86,4 +84,8 @@ export default {
 </script>
 
 <style>
+.j-print {
+  margin: auto;
+  width: 708px;
+}
 </style>

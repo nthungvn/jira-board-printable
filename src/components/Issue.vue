@@ -1,42 +1,38 @@
 <template>
-  <v-container>
-    <v-layout wrap justify-end class="issue">
-      <v-flex xs11>
-        <v-avatar size="16px">
-          <img :src="value.issueTypeUrl" alt="Issue type">
-        </v-avatar>
-        <v-avatar size="16px">
-          <img :src="value.priorityUrl" alt="Priority">
-        </v-avatar>
-      </v-flex>
-      <v-flex xs1>
-        <v-avatar size="32px">
-          <img :src="value.avatarUrl" alt="Assignee">
-        </v-avatar>
-      </v-flex>
+  <div class="j-card">
+    <div class="j-card-header">
+      <v-avatar size="16px">
+        <img :src="value.issueTypeUrl" alt="Issue type">
+      </v-avatar>
+      <v-avatar size="16px">
+        <img :src="value.priorityUrl" alt="Priority">
+      </v-avatar>
+      <v-avatar size="32px">
+        <img :src="value.avatarUrl" alt="Assignee">
+      </v-avatar>
+    </div>
 
-      <v-flex>
-        <v-breadcrumbs divider="/">
-          <v-breadcrumbs-item :href='value.parentIssueKey.href' v-if='value.parentIssueKey.key != ""'>
-            {{ value.parentIssueKey.key }}
-          </v-breadcrumbs-item>
-          <v-breadcrumbs-item :href='value.issueKey.href'>
-            {{ value.issueKey.key }}
-          </v-breadcrumbs-item>
-        </v-breadcrumbs>
-      </v-flex>
+    <div>
+      <v-breadcrumbs divider="/">
+        <v-breadcrumbs-item :href='value.parentIssueKey.href' v-if='value.parentIssueKey.key != ""'>
+          {{ value.parentIssueKey.key }}
+        </v-breadcrumbs-item>
+        <v-breadcrumbs-item :href='value.issueKey.href'>
+          {{ value.issueKey.key }}
+        </v-breadcrumbs-item>
+      </v-breadcrumbs>
+    </div>
 
-      <v-flex class="pt-4" xs12>
-        <div class="title">{{ value.summary }}</div>
-      </v-flex>
+    <div>
+      <div class="title">{{ value.summary }}</div>
+    </div>
 
-      <v-flex class="pt-5" xs1>
-        <v-badge color="grey">
-          <span slot="badge">{{ value.issuePoints }}</span>
-        </v-badge>
-      </v-flex>
-    </v-layout>
-  </v-container>
+    <div>
+      <v-badge color="grey">
+        <span slot="badge">{{ value.issuePoints }}</span>
+      </v-badge>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -49,10 +45,15 @@ export default {
 </script>
 
 <style scope>
-.issue {
+.j-card {
   border: 1px solid grey;
   padding: 20px;
-  min-height: 6cm;
+  width: 350px;
+  height: 233px;
+  box-sizing: border-box;
+  float: left;
+  margin: 2px;
+  position: relative;
 }
 
 .breadcrumbs {
@@ -60,7 +61,7 @@ export default {
 }
 
 @media print {
-  .issue {
+  .j-card {
     page-break-inside: avoid;
   }
 }
