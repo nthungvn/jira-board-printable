@@ -1,8 +1,87 @@
 <template>
+  <v-app>
+    <v-toolbar color="blue darken-3" dark dense fixed clipped-left app v-if='!isPrint'>
+      <v-toolbar-side-icon></v-toolbar-side-icon>
+      <v-toolbar-title class="mr-5 align-center">
+        <span class="title">Jira Board Printable</span>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+
+      <v-layout align-center>
+        <v-text-field placeholder="Sprint name" v-model='sprintName' single-line append-icon="search" :append-icon-cb="() => {}" color="white" hide-details></v-text-field>
+      </v-layout>
+      <v-spacer></v-spacer>
+
+      {{ numberOfIssue }} issues
+      <v-btn color="blue" @click='isPrint = true'>Print</v-btn>
+    </v-toolbar>
+
+    <v-content>
+      <v-layout wrap v-if='!isError'>
+        <v-flex xs6 sm4 md4 v-for='(issue, index) in issues' :key='issue.issueKey.key'>
+          <j-issue v-model='issues[index]'></j-issue>
+        </v-flex>
+      </v-layout>
+      <v-layout align-center v-if='isError'>
+        <v-alert type="error" :value="isError">
+          There is something wrong when the application send the request to server
+        </v-alert>
+      </v-layout>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
+import {jira} from './configs/vue-resource.js'
+
 export default {
+  data() {
+    return {
+      isPrint: false,
+      unAssigneeAvatarUrl: 'https://jira.axonivy.com/jira/secure/useravatar?size=medium&avatarId=10123',
+      isError: false,
+      sprintName: 'Innovation 12',
+      issues: []
+    };
+  },
+  methods: {
+    toJiraJson(response) {
+      let rawIssues = response.issues || [];
+      let data = [];
+      for (let issue of rawIssues) {
+        data.push({
+          issueTypeUrl: issue.fields.issuetype.iconUrl,
+          priorityUrl: issue.fields.priority.iconUrl,
+          parentIssueKey: {
+            key: '',
+            href: ''
+          },
+          issueKey: {
+            key: issue.key,
+            href: issue.sefl
+          },
+          avatarUrl: issue.fields.assignee != undefined ? issue.fields.assignee.avatarUrls['32x32'] : this.unAssigneeAvatarUrl,
+          summary: issue.fields.summary,
+          issuePoints: issue.fields.customfield_10002
+        })
+      }
+      return data;
+    }
+  },
+  created() {
+    jira.searchIssues({
+      jql: `Team = Innovation AND issuetype in standardIssueTypes() AND Sprint = "${this.sprintName}" ORDER BY Rank ASC`,
+      fields: 'priority,issuetype,summary,assignee,subtasks,customfield_10002'
+    }).then(response => {
+      this.isError = false;
+      this.issues = this.toJiraJson(response.body);
+    }, response => this.isError = true);
+  },
+  computed: {
+    numberOfIssue: function() {
+      return this.issues.length
+    }
+  }
 }
 </script>
 
