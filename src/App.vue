@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-toolbar color="blue darken-3" dark dense fixed clipped-left app v-if='!isPrint'>
+    <v-toolbar color="blue darken-3" dark dense fixed clipped-left app>
       <v-toolbar-side-icon></v-toolbar-side-icon>
       <v-toolbar-title class="mr-5 align-center">
         <span class="title">Jira Board Printable</span>
@@ -13,11 +13,11 @@
       <v-spacer></v-spacer>
 
       {{ numberOfIssue }} issues
-      <v-btn color="blue" @click='isPrint = true'>Print</v-btn>
+      <v-btn color="blue" @click='openPrintDialog'>Print</v-btn>
     </v-toolbar>
 
     <v-content>
-      <div v-if='!isError' class="j-print">
+      <div v-if='!isError' class="j-printable">
         <j-issue v-for='(issue, index) in issues' :key='issue.issueKey.key' :item='issue' v-model='issues[index]'></j-issue>
       </div>
       <v-layout align-center v-if='isError'>
@@ -35,7 +35,6 @@ import {jira} from './configs/vue-resource.js'
 export default {
   data() {
     return {
-      isPrint: false,
       unAssigneeAvatarUrl: 'https://jira.axonivy.com/jira/secure/useravatar?size=medium&avatarId=10123',
       isError: false,
       sprintName: process.env.INITIALIZATION_SPRINT_BOARD,
@@ -43,6 +42,9 @@ export default {
     };
   },
   methods: {
+    openPrintDialog() {
+      window.print();
+    },
     toJiraJson(response) {
       let rawIssues = response.issues || [];
       let data = [];
@@ -84,8 +86,22 @@ export default {
 </script>
 
 <style>
-.j-print {
+.j-printable {
   margin: auto;
   width: 708px;
+}
+
+@media print {
+  .j-printable {
+    width: auto;
+  }
+
+  .toolbar__content {
+    display: none;
+  }
+
+  .content {
+    padding: 0 !important;
+  }
 }
 </style>
