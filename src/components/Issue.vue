@@ -2,26 +2,14 @@
   <div class="j-card">
     <div class="j-card-content">
       <div class="j-card-header">
-        <v-avatar size="16px">
-          <img :src="value.issueTypeUrl" alt="Issue type">
-        </v-avatar>
-        <v-avatar size="16px">
-          <img :src="value.priorityUrl" alt="Priority">
-        </v-avatar>
+        <div class="j-card-id">
+          <span v-if='value.parentIssueKey != ""'>{{ value.parentIssueKey }}</span>
+          <span>{{ value.issueKey }}</span>
+        </div>
+
         <v-avatar class="j-assignee" size="24px">
           <img :src="value.avatarUrl" alt="Assignee">
         </v-avatar>
-      </div>
-
-      <div>
-        <v-breadcrumbs divider="/">
-          <v-breadcrumbs-item :href='value.parentIssueKey.href' v-if='value.parentIssueKey.key != ""'>
-            {{ value.parentIssueKey.key }}
-          </v-breadcrumbs-item>
-          <v-breadcrumbs-item :href='value.issueKey.href'>
-            {{ value.issueKey.key }}
-          </v-breadcrumbs-item>
-        </v-breadcrumbs>
       </div>
 
       <div class="j-card-summary">
@@ -29,9 +17,14 @@
       </div>
 
       <div class="j-card-footer">
-        <v-badge color="grey">
-          <span slot="badge">{{ value.issuePoints }}</span>
-        </v-badge>
+        <v-avatar size="16px">
+          <img :src="value.issueTypeUrl" alt="Issue type">
+        </v-avatar>
+        <v-avatar size="16px">
+          <img :src="value.priorityUrl" alt="Priority">
+        </v-avatar>
+
+        <span class="j-badge">{{ value.issuePoints }}</span>
       </div>
     </div>
   </div>
@@ -62,6 +55,9 @@ export default {
   position: relative;
 }
 
+.j-card-id {
+  color: gray;
+}
 .j-card-header {
   height: 24px;
 }
@@ -72,12 +68,31 @@ export default {
   right: 0;
 }
 
+.j-card-summary {
+  text-align: center;
+  padding-top: 20px;
+}
+
+.j-card-summary .title {
+  line-height: 1.5em !important;
+}
+
 .j-card-footer {
   height: 25px;
   position: absolute;
   bottom: 0;
-  right: 0;
   width: 100%;
+}
+
+.j-card-footer .j-badge {
+  position: inherit;
+  right: 0;
+  background: grey;
+  color: white;
+  border-radius:50%;
+  width: 20px;
+  height: 20px;
+  text-align: center;
 }
 
 @media print {

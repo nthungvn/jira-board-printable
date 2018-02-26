@@ -52,14 +52,8 @@ export default {
         data.push({
           issueTypeUrl: issue.fields.issuetype.iconUrl,
           priorityUrl: issue.fields.priority.iconUrl,
-          parentIssueKey: {
-            key: '',
-            href: ''
-          },
-          issueKey: {
-            key: issue.key,
-            href: issue.sefl
-          },
+          parentIssueKey: '',
+          issueKey: issue.key,
           avatarUrl: issue.fields.assignee != undefined ? issue.fields.assignee.avatarUrls['32x32'] : this.unAssigneeAvatarUrl,
           summary: issue.fields.summary,
           issuePoints: issue.fields.customfield_10002
