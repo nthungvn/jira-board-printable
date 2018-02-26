@@ -38,7 +38,7 @@ export default {
       isPrint: false,
       unAssigneeAvatarUrl: 'https://jira.axonivy.com/jira/secure/useravatar?size=medium&avatarId=10123',
       isError: false,
-      sprintName: 'Innovation 12',
+      sprintName: process.env.INITIALIZATION_SPRINT_BOARD,
       issues: []
     };
   },
