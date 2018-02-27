@@ -8,7 +8,7 @@
       <v-spacer></v-spacer>
 
       <v-layout align-center>
-        <v-text-field placeholder="Sprint name" v-model='sprintName' single-line append-icon="search" :append-icon-cb="() => {}" color="white" hide-details></v-text-field>
+        <v-text-field placeholder="Sprint name" v-model='sprintName' single-line append-icon="search" :append-icon-cb='searchIssuesCurrentSprint' color="white" hide-details></v-text-field>
       </v-layout>
       <v-spacer></v-spacer>
 
@@ -22,7 +22,7 @@
       </div>
       <v-layout align-center v-if='isError'>
         <v-alert type="error" :value="isError">
-          There is something wrong when the application send the request to server
+          {{ errorMessage ? errorMessage : 'There is something wrong when the application send the request to server' }}
         </v-alert>
       </v-layout>
     </v-content>
@@ -37,6 +37,7 @@ export default {
     return {
       unAssigneeAvatarUrl: 'https://jira.axonivy.com/jira/secure/useravatar?size=medium&avatarId=10123',
       isError: false,
+      errorMessage: '',
       sprintName: process.env.INITIALIZATION_SPRINT_BOARD,
       issues: []
     };
@@ -60,16 +61,25 @@ export default {
         })
       }
       return data;
+    },
+    searchIssuesCurrentSprint() {
+      this.searchIssuesGivenSprint(this.sprintName);
+    },
+    searchIssuesGivenSprint(sprintName) {
+      jira.searchIssues({
+        jql: `Team = Innovation AND issuetype in standardIssueTypes() AND Sprint = "${sprintName}" ORDER BY Rank ASC`,
+        fields: 'priority,issuetype,summary,assignee,subtasks,customfield_10002'
+      }).then(response => {
+        this.isError = false;
+        this.issues = this.toJiraJson(response.body);
+      }, response => {
+        this.isError = true;
+        this.errorMessage = response.body.errorMessages[0];
+      });
     }
   },
   created() {
-    jira.searchIssues({
-      jql: `Team = Innovation AND issuetype in standardIssueTypes() AND Sprint = "${this.sprintName}" ORDER BY Rank ASC`,
-      fields: 'priority,issuetype,summary,assignee,subtasks,customfield_10002'
-    }).then(response => {
-      this.isError = false;
-      this.issues = this.toJiraJson(response.body);
-    }, response => this.isError = true);
+    this.searchIssuesGivenSprint(this.sprintName);
   },
   computed: {
     numberOfIssue: function() {
