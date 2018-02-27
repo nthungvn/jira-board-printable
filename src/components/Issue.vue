@@ -28,14 +28,14 @@
 
 <script>
 export default {
-  props: ['value'],
-  data () {
+  props: ["value"],
+  data() {
     return {
-      iconSize: '16px',
-      avatarSize: '24px'
+      iconSize: "16px",
+      avatarSize: "24px"
     };
   }
-}
+};
 </script>
 
 <style scope>
@@ -81,7 +81,7 @@ export default {
   right: 0;
   background: grey;
   color: white;
-  border-radius:50%;
+  border-radius: 50%;
   width: 20px;
   height: 20px;
   text-align: center;
