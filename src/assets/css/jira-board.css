@@ -3,6 +3,12 @@
   width: 708px;
 }
 
+.j-printable
+.j-end {
+  position: absolute;
+  right: 0;
+}
+
 .j-card {
   border: 1px solid grey;
   padding: 20px;
@@ -18,11 +24,17 @@
   position: relative;
 }
 
-.j-card-id {
-  color: gray;
-}
 .j-card-header {
   height: 24px;
+}
+
+.j-card-header
+.j-index {
+  top: 0;
+}
+
+.j-card-id {
+  color: gray;
 }
 
 .j-card-summary {

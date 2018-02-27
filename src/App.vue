@@ -18,7 +18,7 @@
 
     <v-content>
       <div v-if='!isError' class="j-printable">
-        <j-issue v-for='(issue, index) in issues' :key='issue.issueKey.key' :item='issue' v-model='issues[index]'></j-issue>
+        <j-issue v-for='(issue, index) in issues' :key='issue.issueKey.key' :index='index' v-model='issues[index]'></j-issue>
       </div>
       <v-layout align-center v-if='isError'>
         <v-alert type="error" :value="isError">

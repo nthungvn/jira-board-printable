@@ -6,6 +6,7 @@
           <span v-if='value.parentIssueKey != ""'>{{ value.parentIssueKey }}</span>
           <span>{{ value.issueKey }}</span>
         </div>
+        <span class="j-index j-end">{{ index + 1 }}</span>
       </div>
 
       <div class="j-card-summary">
@@ -20,7 +21,7 @@
           <img :src="value.priorityUrl" alt="Priority">
         </v-avatar>
 
-        <span class="j-badge">{{ value.issuePoints }}</span>
+        <span class="j-badge j-end">{{ value.issuePoints }} pts</span>
       </div>
     </div>
   </div>
@@ -28,7 +29,7 @@
 
 <script>
 export default {
-  props: ["value"],
+  props: ["value", "index"],
   data() {
     return {
       iconSize: "16px",
@@ -40,13 +41,19 @@ export default {
 
 <style scope>
 .j-card-footer .j-badge {
-  position: inherit;
-  right: 0;
   background: grey;
   color: white;
   border-radius: 50%;
   width: 20px;
   height: 20px;
   text-align: center;
+}
+
+@media print {
+  .j-card-footer .j-badge {
+    color: black;
+    width: auto;
+    height: auto;
+  }
 }
 </style>
