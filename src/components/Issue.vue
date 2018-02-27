@@ -39,21 +39,25 @@ export default {
 };
 </script>
 
-<style scope>
-.j-card-footer .j-badge {
-  background: grey;
-  color: white;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  text-align: center;
+<style lang="less" scoped>
+.j-card-footer {
+  .j-badge {
+    background: grey;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+  }
 }
 
 @media print {
-  .j-card-footer .j-badge {
-    color: black;
-    width: auto;
-    height: auto;
+  .j-card-footer {
+    .j-badge {
+      color: black;
+      width: auto;
+      height: auto;
+    }
   }
 }
 </style>
