@@ -6,10 +6,6 @@
           <span v-if='value.parentIssueKey != ""'>{{ value.parentIssueKey }}</span>
           <span>{{ value.issueKey }}</span>
         </div>
-
-        <v-avatar class="j-assignee" size="24px">
-          <img :src="value.avatarUrl" alt="Assignee">
-        </v-avatar>
       </div>
 
       <div class="j-card-summary">
@@ -17,10 +13,10 @@
       </div>
 
       <div class="j-card-footer">
-        <v-avatar size="16px">
+        <v-avatar :size="iconSize">
           <img :src="value.issueTypeUrl" alt="Issue type">
         </v-avatar>
-        <v-avatar size="16px">
+        <v-avatar :size="iconSize">
           <img :src="value.priorityUrl" alt="Priority">
         </v-avatar>
 
@@ -34,7 +30,10 @@
 export default {
   props: ['value'],
   data () {
-    return {};
+    return {
+      iconSize: '16px',
+      avatarSize: '24px'
+    };
   }
 }
 </script>
@@ -62,14 +61,7 @@ export default {
   height: 24px;
 }
 
-.j-card-header .j-assignee {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
 .j-card-summary {
-  text-align: center;
   padding-top: 20px;
 }
 
