@@ -5,6 +5,8 @@ import App from './App.vue';
 import Issue from './components/Issue.vue';
 
 import 'vuetify/dist/vuetify.min.css';
+import './assets/css/jira-board.css';
+import './assets/css/jira-board-print.css';
 
 Vue.use(Vuetify);
 

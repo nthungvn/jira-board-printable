@@ -1,0 +1,17 @@
+@media print {
+  .j-printable {
+    width: auto;
+  }
+
+  .j-card {
+    page-break-inside: avoid;
+  }
+
+  .toolbar__content {
+    display: none;
+  }
+
+  .content {
+    padding: 0 !important;
+  }
+}

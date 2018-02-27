@@ -39,43 +39,6 @@ export default {
 </script>
 
 <style scope>
-.j-card {
-  border: 1px solid grey;
-  padding: 20px;
-  width: 350px;
-  height: 230px;
-  float: left;
-  margin: 2px;
-  position: relative;
-}
-
-.j-card-content {
-  height: 100%;
-  position: relative;
-}
-
-.j-card-id {
-  color: gray;
-}
-.j-card-header {
-  height: 24px;
-}
-
-.j-card-summary {
-  padding-top: 20px;
-}
-
-.j-card-summary .title {
-  line-height: 1.5em !important;
-}
-
-.j-card-footer {
-  height: 25px;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-}
-
 .j-card-footer .j-badge {
   position: inherit;
   right: 0;
@@ -85,11 +48,5 @@ export default {
   width: 20px;
   height: 20px;
   text-align: center;
-}
-
-@media print {
-  .j-card {
-    page-break-inside: avoid;
-  }
 }
 </style>

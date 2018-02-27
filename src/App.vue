@@ -80,22 +80,4 @@ export default {
 </script>
 
 <style>
-.j-printable {
-  margin: auto;
-  width: 708px;
-}
-
-@media print {
-  .j-printable {
-    width: auto;
-  }
-
-  .toolbar__content {
-    display: none;
-  }
-
-  .content {
-    padding: 0 !important;
-  }
-}
 </style>
