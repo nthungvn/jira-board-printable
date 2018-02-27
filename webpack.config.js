@@ -16,7 +16,16 @@ module.exports = {
           'vue-style-loader',
           'css-loader'
         ],
-      },      {
+      },
+      {
+        test: /\.less$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          'less-loader'
+        ]
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
@@ -57,7 +66,8 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         'API_BASE_PATH': JSON.stringify(process.env.API_BASE_PATH),
-        'AUTHORIZATION': JSON.stringify(process.env.AUTHORIZATION)
+        'API_AUTHORIZATION': JSON.stringify(process.env.API_AUTHORIZATION),
+        'INITIALIZATION_SPRINT_BOARD': JSON.stringify(process.env.INITIALIZATION_SPRINT_BOARD)
       }
     })
   ],

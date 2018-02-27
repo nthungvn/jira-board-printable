@@ -1,13 +1,18 @@
-import Vue from 'vue'
-import VueResource from 'vue-resource'
-import App from './App.vue'
+import Vue from 'vue';
+import Vuetify from 'vuetify';
 
-Vue.use(VueResource);
+import App from './App.vue';
+import Issue from './components/Issue.vue';
 
-Vue.http.options.root = process.env.API_BASE_PATH;
-Vue.http.headers.common['Authorization'] = process.env.API_AUTHORIZATION;
+import 'vuetify/dist/vuetify.min.css';
+import './assets/css/jira-board.less';
+import './assets/css/jira-board-print.less';
+
+Vue.use(Vuetify);
+
+Vue.component('j-issue', Issue);
 
 new Vue({
   el: '#app',
   render: h => h(App)
-})
+});
