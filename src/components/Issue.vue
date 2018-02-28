@@ -2,11 +2,11 @@
   <div class="j-card">
     <div class="j-card-content">
       <div class="j-card-header">
-        <div class="j-card-id">
-          <span v-if='value.parentIssueKey != ""'>{{ value.parentIssueKey }}</span>
+        <div class="id">
+          <span v-if='value.parentIssueKey'>{{ value.parentIssueKey }}</span>
           <span>{{ value.issueKey }}</span>
         </div>
-        <span class="j-index j-end">{{ index + 1 }}</span>
+        <span class="index end">{{ index }}</span>
       </div>
 
       <div class="j-card-summary">
@@ -21,7 +21,7 @@
           <img :src="value.priorityUrl" alt="Priority">
         </v-avatar>
 
-        <span class="j-badge j-end">{{ value.issuePoints }} pts</span>
+        <span class="badge end">{{ value.issuePoints }} pts</span>
       </div>
     </div>
   </div>
@@ -40,24 +40,4 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.j-card-footer {
-  .j-badge {
-    background: grey;
-    color: white;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    text-align: center;
-  }
-}
-
-@media print {
-  .j-card-footer {
-    .j-badge {
-      color: black;
-      width: auto;
-      height: auto;
-    }
-  }
-}
 </style>
