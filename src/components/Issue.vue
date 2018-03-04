@@ -3,8 +3,7 @@
     <div class="j-card-content">
       <div class="j-card-header">
         <div class="id">
-          <span v-if='value.parentIssueKey'>{{ value.parentIssueKey }}</span>
-          <span>{{ value.issueKey }}</span>
+          <b v-if='value.parentIssueKey'>{{ value.parentIssueKey }}/</b><span>{{ value.issueKey }}</span>
         </div>
         <span class="index end" v-if="index">{{ index }}</span>
       </div>
@@ -21,7 +20,7 @@
           <img :src="value.priorityUrl" alt="Priority">
         </v-avatar>
 
-        <span class="badge end">{{ value.issuePoints }} pts</span>
+        <span class="badge end" v-if="value.issuePoints">{{ value.issuePoints }} pts</span>
       </div>
     </div>
   </div>
