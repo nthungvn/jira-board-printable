@@ -30,49 +30,43 @@
 </template>
 
 <script>
-import { jira } from './configs/vue-resource';
-import IssueHandler from './assets/js/issue-handler'
+import SprintSearchHandler from "./assets/js/sprint-search-handler";
 
 export default {
   data() {
     return {
-      isError: false,
-      errorMessage: '',
+      handler: {},
       sprintName: process.env.INITIALIZATION_SPRINT_BOARD,
+      isError: false,
+      errorMessage: "",
       issues: []
     };
   },
+
   methods: {
     openPrintDialog() {
       window.print();
     },
+
     searchIssuesCurrentSprint() {
-      this.searchIssuesGivenSprint(this.sprintName);
-    },
-    searchIssuesGivenSprint(sprintName) {
-      jira.searchIssues({
-        jql: `Team = Innovation AND issuetype in standardIssueTypes() AND Sprint = "${sprintName}" ORDER BY Rank ASC`,
-        fields: 'priority,issuetype,summary,assignee,subtasks,customfield_10002'
-      }).then(response => {
-        this.isError = false;
-        let issueHandler = new IssueHandler(response.body);
-        this.issues = issueHandler.getStories();
-      }, response => {
-        this.isError = true;
-        this.errorMessage = response.body.errorMessages[0];
-      });
+      this.handler = new SprintSearchHandler(this.sprintName);
+      this.handler.execute(response => Object.assign(this, response));
     }
   },
+
   created() {
-    this.searchIssuesGivenSprint(this.sprintName);
+    this.handler = new SprintSearchHandler(this.sprintName);
+    this.handler.execute(response => Object.assign(this, response));
   },
+
   computed: {
     numberOfIssue: function() {
-      return this.issues.length
+      return this.issues.length;
     }
   }
-}
+};
 </script>
 
 <style>
+
 </style>
