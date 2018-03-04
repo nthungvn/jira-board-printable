@@ -30,12 +30,12 @@
 </template>
 
 <script>
-import {jira} from './configs/vue-resource.js'
+import { jira } from './configs/vue-resource';
+import IssueHandler from './assets/js/issue-handler'
 
 export default {
   data() {
     return {
-      unAssigneeAvatarUrl: 'https://jira.axonivy.com/jira/secure/useravatar?size=medium&avatarId=10123',
       isError: false,
       errorMessage: '',
       sprintName: process.env.INITIALIZATION_SPRINT_BOARD,
@@ -46,22 +46,6 @@ export default {
     openPrintDialog() {
       window.print();
     },
-    toJiraJson(response) {
-      let rawIssues = response.issues || [];
-      let data = [];
-      for (let issue of rawIssues) {
-        data.push({
-          issueTypeUrl: issue.fields.issuetype.iconUrl,
-          priorityUrl: issue.fields.priority.iconUrl,
-          parentIssueKey: '',
-          issueKey: issue.key,
-          avatarUrl: issue.fields.assignee != undefined ? issue.fields.assignee.avatarUrls['32x32'] : this.unAssigneeAvatarUrl,
-          summary: issue.fields.summary,
-          issuePoints: issue.fields.customfield_10002
-        })
-      }
-      return data;
-    },
     searchIssuesCurrentSprint() {
       this.searchIssuesGivenSprint(this.sprintName);
     },
@@ -71,7 +55,8 @@ export default {
         fields: 'priority,issuetype,summary,assignee,subtasks,customfield_10002'
       }).then(response => {
         this.isError = false;
-        this.issues = this.toJiraJson(response.body);
+        let issueHandler = new IssueHandler(response.body);
+        this.issues = issueHandler.getStories();
       }, response => {
         this.isError = true;
         this.errorMessage = response.body.errorMessages[0];
