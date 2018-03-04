@@ -55,8 +55,7 @@ export default {
   },
 
   created() {
-    this.handler = new SprintSearchHandler(this.sprintName);
-    this.handler.execute(response => Object.assign(this, response));
+    this.searchIssuesCurrentSprint();
   },
 
   computed: {
