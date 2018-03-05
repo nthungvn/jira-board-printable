@@ -2,11 +2,13 @@
   <v-app>
     <j-toolbar v-model="sprintName" :searchAction="searchIssuesCurrentSprint" :numberOfIssues="numberOfIssues"></j-toolbar>
 
-    <v-content>
-      <div v-if='!isError' class="j-printable">
+    <v-content v-if="!isError">
+      <div class="j-printable">
         <j-issue v-for='(issue, index) in issues' :key='issue.issueKey.key' :index='index + 1' v-model='issues[index]'></j-issue>
       </div>
-      <v-layout align-center v-if='isError'>
+    </v-content>
+    <v-content v-else>
+      <v-layout align-center>
         <v-alert type="error" :value="isError">
           {{ errorMessage ? errorMessage : 'There is something wrong when the application send the request to server' }}
         </v-alert>
