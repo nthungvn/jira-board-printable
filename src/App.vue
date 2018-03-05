@@ -1,20 +1,6 @@
 <template>
   <v-app>
-    <v-toolbar color="blue darken-3" dark dense fixed clipped-left app>
-      <v-toolbar-side-icon></v-toolbar-side-icon>
-      <v-toolbar-title class="mr-5 align-center">
-        <span class="title">Jira Board Printable</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-
-      <v-layout align-center>
-        <v-text-field placeholder="Sprint name" v-model='sprintName' single-line append-icon="search" :append-icon-cb='searchIssuesCurrentSprint' color="white" hide-details></v-text-field>
-      </v-layout>
-      <v-spacer></v-spacer>
-
-      {{ numberOfIssue }} issues
-      <v-btn color="blue" @click='openPrintDialog'>Print</v-btn>
-    </v-toolbar>
+    <j-toolbar v-model="sprintName" :searchAction="searchIssuesCurrentSprint" :numberOfIssues="numberOfIssues"></j-toolbar>
 
     <v-content>
       <div v-if='!isError' class="j-printable">
@@ -35,7 +21,6 @@ import SprintSearchHandler from "./assets/js/sprint-search-handler";
 export default {
   data() {
     return {
-      handler: {},
       sprintName: process.env.INITIALIZATION_SPRINT_BOARD,
       isError: false,
       errorMessage: "",
@@ -44,22 +29,14 @@ export default {
   },
 
   methods: {
-    openPrintDialog() {
-      window.print();
-    },
-
     searchIssuesCurrentSprint() {
-      this.handler = new SprintSearchHandler(this.sprintName);
-      this.handler.execute(response => Object.assign(this, response));
+      let handler = new SprintSearchHandler(this.sprintName);
+      handler.execute(response => Object.assign(this, response));
     }
   },
 
-  created() {
-    this.searchIssuesCurrentSprint();
-  },
-
   computed: {
-    numberOfIssue: function() {
+    numberOfIssues: function() {
       return this.issues.length;
     }
   }
