@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import TypeOfIssue from "../assets/js/type-of-issue";
+
 export default {
   props: {
     value: {
@@ -37,10 +39,9 @@ export default {
       type: Number
     },
     type: {
-      type: String,
-      default: "rectangle",
-      validator: function(value) {
-        return value == "square" || value == "rectangle";
+      type: TypeOfIssue,
+      default() {
+        return TypeOfIssue.STORY;
       }
     }
   },
@@ -53,8 +54,8 @@ export default {
   },
 
   computed: {
-    cardType: function() {
-      return this.type == "square" ? "j-card-square" : "j-card-rectangle";
+    cardType() {
+      return this.type == TypeOfIssue.STORY ? "j-card-rectangle" : "j-card-square";
     }
   }
 };

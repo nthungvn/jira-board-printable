@@ -38,7 +38,7 @@ export default {
   },
 
   computed: {
-    numberOfIssues: function() {
+    numberOfIssues() {
       return this.issues.length;
     }
   }

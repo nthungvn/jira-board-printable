@@ -1,12 +1,13 @@
 import { jira } from '../../configs/vue-resource';
 import IssueHandler from './issue-handler'
+import TypeOfIssue from './type-of-issue'
 
 export default class SprintSearchHandler {
   constructor(sprintName) {
     this.sprintName = sprintName;
   }
 
-  execute(callback) {
+  execute(callback, typeOfIssue = TypeOfIssue.STORY) {
     let result = {};
     jira.searchIssues({
       jql: `Team = Innovation AND issuetype in standardIssueTypes() AND Sprint = "${this.sprintName}" ORDER BY Rank ASC`,
@@ -16,7 +17,7 @@ export default class SprintSearchHandler {
       result = {
         isError : false,
         errorMessage: '',
-        issues : issueHandler.getStories()
+        issues : typeOfIssue == TypeOfIssue.STORY ? issueHandler.getStories() : issueHandler.getTasks()
       };
       callback(result);
     }, response => {
