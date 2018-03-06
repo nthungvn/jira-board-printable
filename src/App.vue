@@ -4,7 +4,7 @@
 
     <v-content v-if="!isError">
       <div class="j-printable">
-        <j-issue v-for='(issue, index) in issues' :key='issue.issueKey.key' :index='index + 1' v-model='issues[index]'></j-issue>
+        <j-issue v-for='(issue, index) in issues' :key='issue.issueKey.key' :index='issue.index' v-model='issues[index]'></j-issue>
       </div>
     </v-content>
     <v-content v-else>
