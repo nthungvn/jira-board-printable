@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
+import VueRouter from 'vue-router';
 
 import App from './App.vue';
 import Issue from './components/Issue.vue';
@@ -10,6 +11,7 @@ import './assets/css/jira-board.less';
 import './assets/css/jira-board-print.less';
 
 Vue.use(Vuetify);
+Vue.use(VueRouter)
 
 Vue.component('j-issue', Issue);
 Vue.component('j-toolbar', Toolbar)
