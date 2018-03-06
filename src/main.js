@@ -10,13 +10,18 @@ import 'vuetify/dist/vuetify.min.css';
 import './assets/css/jira-board.less';
 import './assets/css/jira-board-print.less';
 
+import { routes } from './configs/vue-router'
+
 Vue.use(Vuetify);
 Vue.use(VueRouter)
 
 Vue.component('j-issue', Issue);
 Vue.component('j-toolbar', Toolbar)
 
+const router = new VueRouter({ routes });
+
 new Vue({
   el: '#app',
+  router: router,
   render: h => h(App)
 });

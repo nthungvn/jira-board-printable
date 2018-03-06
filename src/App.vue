@@ -3,6 +3,7 @@
     <j-toolbar v-model="sprintName" :searchAction="searchIssuesCurrentSprint" :numberOfIssues="numberOfIssues"></j-toolbar>
 
     <v-content v-if="!isError">
+      <router-view></router-view>
       <div class="j-printable">
         <j-issue v-for='(issue, index) in issues' :key='issue.issueKey.key' :index='issue.index' v-model='issues[index]'></j-issue>
       </div>
