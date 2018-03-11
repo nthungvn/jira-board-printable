@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <j-toolbar v-model="sprintName" :searchAction="searchIssuesCurrentSprint" :numberOfIssues="numberOfIssues"></j-toolbar>
+    <j-toolbar :searchAction="searchIssuesCurrentSprint" :numberOfIssues="numberOfIssues" @change="updateSprint"></j-toolbar>
 
     <v-content v-if="!isError">
       <router-view></router-view>
@@ -20,11 +20,13 @@
 
 <script>
 import SprintSearchHandler from "./assets/js/sprint-search-handler";
+import TypeOfIssue from "./assets/js/type-of-issue";
 
 export default {
   data() {
     return {
-      sprintName: process.env.INITIALIZATION_SPRINT_BOARD,
+      sprintName: "",
+      typeOfIssue: TypeOfIssue.STORY,
       isError: false,
       errorMessage: "",
       issues: []
@@ -34,7 +36,11 @@ export default {
   methods: {
     searchIssuesCurrentSprint() {
       let handler = new SprintSearchHandler(this.sprintName);
-      handler.execute(response => Object.assign(this, response));
+      handler.execute(response => Object.assign(this, response), this.typeOfIssue);
+    },
+
+    updateSprint(value) {
+      Object.assign(this, value);
     }
   },
 

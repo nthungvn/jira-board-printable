@@ -13,7 +13,7 @@
 
     <v-layout align-center>
       <v-text-field placeholder="Sprint name" single-line append-icon="search" color="white" hide-details
-        :append-icon-cb='searchAction' v-model='value'></v-text-field>
+        :append-icon-cb='search' v-model='sprintName'></v-text-field>
     </v-layout>
     <v-spacer></v-spacer>
 
@@ -27,11 +27,6 @@ import TypeOfIssue from "../assets/js/type-of-issue";
 
 export default {
   props: {
-    value: {
-      type: String,
-      required: true
-    },
-
     searchAction: {
       type: Function,
       required: true
@@ -45,7 +40,8 @@ export default {
 
   data() {
     return {
-      typeOfIssue: TypeOfIssue.STORY
+      typeOfIssue: TypeOfIssue.STORY,
+      sprintName: process.env.INITIALIZATION_SPRINT_BOARD
     }
   },
 
@@ -62,7 +58,17 @@ export default {
   methods: {
     openPrintDialog() {
       window.print();
+    },
+
+    search() {
+      let payload = {
+        sprintName: this.sprintName,
+        typeOfIssue: this.typeOfIssue
+      }
+      this.$emit("change", payload);
+      this.searchAction();
     }
+
   }
 }
 </script>
