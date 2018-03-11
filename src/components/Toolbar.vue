@@ -6,6 +6,11 @@
     </v-toolbar-title>
     <v-spacer></v-spacer>
 
+    <v-btn-toggle class="mr-3" mandatory v-model="typeOfIssue">
+      <v-btn :value="story" color="success">Story</v-btn>
+      <v-btn :value="task" color="warning">Task</v-btn>
+    </v-btn-toggle>
+
     <v-layout align-center>
       <v-text-field placeholder="Sprint name" single-line append-icon="search" color="white" hide-details
         :append-icon-cb='searchAction' v-model='value'></v-text-field>
@@ -18,6 +23,8 @@
 </template>
 
 <script>
+import TypeOfIssue from "../assets/js/type-of-issue";
+
 export default {
   props: {
     value: {
@@ -33,6 +40,22 @@ export default {
     numberOfIssues: {
       type: Number,
       default: 0
+    }
+  },
+
+  data() {
+    return {
+      typeOfIssue: TypeOfIssue.STORY
+    }
+  },
+
+  computed: {
+    story() {
+      return TypeOfIssue.STORY;
+    },
+
+    task() {
+      return TypeOfIssue.TASK;
     }
   },
 

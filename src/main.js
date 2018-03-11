@@ -10,13 +10,13 @@ import 'vuetify/dist/vuetify.min.css';
 import './assets/css/jira-board.less';
 import './assets/css/jira-board-print.less';
 
-import { routes } from './configs/vue-router'
+import { routes } from './configs/vue-router';
 
 Vue.use(Vuetify);
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 Vue.component('j-issue', Issue);
-Vue.component('j-toolbar', Toolbar)
+Vue.component('j-toolbar', Toolbar);
 
 const router = new VueRouter({ routes });
 
