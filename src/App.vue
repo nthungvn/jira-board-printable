@@ -65,4 +65,11 @@ export default {
 .j-printable.j-square {
   width: @task-page-width;
 }
+
+@media print {
+  .j-printable.j-rectangle,
+  .j-printable.j-square {
+    width: auto;
+  }
+}
 </style>
