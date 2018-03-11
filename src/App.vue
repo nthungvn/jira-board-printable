@@ -3,8 +3,7 @@
     <j-toolbar :searchAction="searchIssuesCurrentSprint" :numberOfIssues="numberOfIssues" @change="updateSprint"></j-toolbar>
 
     <v-content v-if="!isError">
-      <router-view></router-view>
-      <div class="j-printable">
+      <div class="j-printable" :class="cardType">
         <j-issue v-for='issue in issues' :key='issue.issueKey.key' :index='issue.index' :value='issue' :type='typeOfIssue'></j-issue>
       </div>
     </v-content>
@@ -47,11 +46,23 @@ export default {
   computed: {
     numberOfIssues() {
       return this.issues.length;
+    },
+
+    cardType() {
+      return this.typeOfIssue == TypeOfIssue.STORY ? "j-rectangle" : "j-square";
     }
   }
 };
 </script>
 
-<style>
+<style <style lang="less" scoped>
+@import "./assets/css/jira-global.less";
 
+.j-printable.j-rectangle {
+  width: @story-page-width;
+}
+
+.j-printable.j-square {
+  width: @task-page-width;
+}
 </style>
