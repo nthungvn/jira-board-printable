@@ -5,7 +5,7 @@
     <v-content v-if="!isError">
       <router-view></router-view>
       <div class="j-printable">
-        <j-issue v-for='issue in issues' :key='issue.issueKey.key' :index='issue.index' :value='issue'></j-issue>
+        <j-issue v-for='issue in issues' :key='issue.issueKey.key' :index='issue.index' :value='issue' :type='typeOfIssue'></j-issue>
       </div>
     </v-content>
     <v-content v-else>

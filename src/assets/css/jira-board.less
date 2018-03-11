@@ -1,6 +1,8 @@
+@import "./jira-global.less";
+
 .j-printable {
   margin: auto;
-  width: 708px;
+  width: @story-page-width;
 
   .end {
     position: absolute;
@@ -10,10 +12,10 @@
   .j-card {
     border: 1px solid grey;
     padding: 20px;
-    width: 350px;
-    height: 250px;
+    width: @rectangle-width;
+    height: @card-height;
     float: left;
-    margin: 2px;
+    margin: @card-margin;
     position: relative;
 
     &-content {

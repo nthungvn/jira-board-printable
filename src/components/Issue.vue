@@ -62,15 +62,17 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import "../assets/css/jira-global.less";
+
 .j-card {
-  height: 250px;
+  height: @card-height;
 
   &-square {
-    width: 250px;
+    width: @square-width;
   }
 
   &-rectangle {
-    width: 350px;
+    width: @rectangle-width;
   }
 }
 </style>
