@@ -1,5 +1,4 @@
 <template>
-  <h1>Tasks here</h1>
 </template>
 
 <script>

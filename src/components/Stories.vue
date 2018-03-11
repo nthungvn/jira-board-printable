@@ -1,5 +1,4 @@
 <template>
-  <h1>Stories here</h1>
 </template>
 
 <script>
