@@ -1,0 +1,27 @@
+// -- CONSTANT WITHOUT UNIT
+
+// Define size for square and rectangle
+@standard-length: 260;
+@task-width: @standard-length;
+@story-width: 370;
+
+// ----
+@issue-margin: 2;
+
+// Define maxinum card allow in page
+@max-stories-in-page: 2;
+@max-tasks-in-page: 3;
+
+
+// -- CONSTANT WITH UNIT
+
+// Actual size for story and task
+@square-width: unit(@task-width, px);
+@rectangle-width: unit(@story-width, px);
+@card-height: unit(@standard-length, px);
+
+@card-margin: unit(@issue-margin, px);
+
+// Calculate the page width for type of issue
+@story-page-width: unit((@story-width + 2 * @issue-margin) * @max-stories-in-page, px);
+@task-page-width: unit((@task-width + 2 * @issue-margin) * @max-tasks-in-page, px);

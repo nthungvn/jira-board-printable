@@ -1,26 +1,14 @@
 <template>
   <v-app>
-    <v-toolbar color="blue darken-3" dark dense fixed clipped-left app>
-      <v-toolbar-side-icon></v-toolbar-side-icon>
-      <v-toolbar-title class="mr-5 align-center">
-        <span class="title">Jira Board Printable</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
+    <j-toolbar :searchAction="searchIssuesCurrentSprint" :numberOfIssues="numberOfIssues" @change="updateSprint"></j-toolbar>
 
-      <v-layout align-center>
-        <v-text-field placeholder="Sprint name" v-model='sprintName' single-line append-icon="search" :append-icon-cb='searchIssuesCurrentSprint' color="white" hide-details></v-text-field>
-      </v-layout>
-      <v-spacer></v-spacer>
-
-      {{ numberOfIssue }} issues
-      <v-btn color="blue" @click='openPrintDialog'>Print</v-btn>
-    </v-toolbar>
-
-    <v-content>
-      <div v-if='!isError' class="j-printable">
-        <j-issue v-for='(issue, index) in issues' :key='issue.issueKey.key' :index='index' v-model='issues[index]'></j-issue>
+    <v-content v-if="!isError">
+      <div class="j-printable" :class="cardType">
+        <j-issue v-for='issue in issues' :key='issue.issueKey.key' :index='issue.index' :value='issue' :type='typeOfIssue'></j-issue>
       </div>
-      <v-layout align-center v-if='isError'>
+    </v-content>
+    <v-content v-else>
+      <v-layout align-center>
         <v-alert type="error" :value="isError">
           {{ errorMessage ? errorMessage : 'There is something wrong when the application send the request to server' }}
         </v-alert>
@@ -30,64 +18,58 @@
 </template>
 
 <script>
-import {jira} from './configs/vue-resource.js'
+import SprintSearchHandler from "./assets/js/sprint-search-handler";
+import TypeOfIssue from "./assets/js/type-of-issue";
 
 export default {
   data() {
     return {
-      unAssigneeAvatarUrl: 'https://jira.axonivy.com/jira/secure/useravatar?size=medium&avatarId=10123',
+      sprintName: "",
+      typeOfIssue: TypeOfIssue.STORY,
       isError: false,
-      errorMessage: '',
-      sprintName: process.env.INITIALIZATION_SPRINT_BOARD,
+      errorMessage: "",
       issues: []
     };
   },
+
   methods: {
-    openPrintDialog() {
-      window.print();
-    },
-    toJiraJson(response) {
-      let rawIssues = response.issues || [];
-      let data = [];
-      for (let issue of rawIssues) {
-        data.push({
-          issueTypeUrl: issue.fields.issuetype.iconUrl,
-          priorityUrl: issue.fields.priority.iconUrl,
-          parentIssueKey: '',
-          issueKey: issue.key,
-          avatarUrl: issue.fields.assignee != undefined ? issue.fields.assignee.avatarUrls['32x32'] : this.unAssigneeAvatarUrl,
-          summary: issue.fields.summary,
-          issuePoints: issue.fields.customfield_10002
-        })
-      }
-      return data;
-    },
     searchIssuesCurrentSprint() {
-      this.searchIssuesGivenSprint(this.sprintName);
+      let handler = new SprintSearchHandler(this.sprintName);
+      handler.execute(response => Object.assign(this, response), this.typeOfIssue);
     },
-    searchIssuesGivenSprint(sprintName) {
-      jira.searchIssues({
-        jql: `Team = Innovation AND issuetype in standardIssueTypes() AND Sprint = "${sprintName}" ORDER BY Rank ASC`,
-        fields: 'priority,issuetype,summary,assignee,subtasks,customfield_10002'
-      }).then(response => {
-        this.isError = false;
-        this.issues = this.toJiraJson(response.body);
-      }, response => {
-        this.isError = true;
-        this.errorMessage = response.body.errorMessages[0];
-      });
+
+    updateSprint(value) {
+      Object.assign(this, value);
     }
   },
-  created() {
-    this.searchIssuesGivenSprint(this.sprintName);
-  },
+
   computed: {
-    numberOfIssue: function() {
-      return this.issues.length
+    numberOfIssues() {
+      return this.issues.length;
+    },
+
+    cardType() {
+      return this.typeOfIssue == TypeOfIssue.STORY ? "j-rectangle" : "j-square";
     }
   }
-}
+};
 </script>
 
-<style>
+<style <style lang="less" scoped>
+@import "./assets/css/jira-global.less";
+
+.j-printable.j-rectangle {
+  width: @story-page-width;
+}
+
+.j-printable.j-square {
+  width: @task-page-width;
+}
+
+@media print {
+  .j-printable.j-rectangle,
+  .j-printable.j-square {
+    width: auto;
+  }
+}
 </style>
