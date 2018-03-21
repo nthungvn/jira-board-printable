@@ -24,7 +24,6 @@ import TypeOfIssue from "./assets/js/type-of-issue";
 export default {
   data() {
     return {
-      sprintName: "",
       typeOfIssue: TypeOfIssue.STORY,
       isError: false,
       errorMessage: "",
@@ -34,7 +33,7 @@ export default {
 
   methods: {
     searchIssuesCurrentSprint() {
-      let handler = new SprintSearchHandler(this.sprintName);
+      let handler = new SprintSearchHandler(this.$store.state.sprintName);
       handler.execute(response => Object.assign(this, response), this.typeOfIssue);
     },
 

@@ -41,7 +41,6 @@ export default {
   data() {
     return {
       typeOfIssue: TypeOfIssue.STORY,
-      sprintName: process.env.INITIALIZATION_SPRINT_BOARD
     }
   },
 
@@ -52,6 +51,15 @@ export default {
 
     task() {
       return TypeOfIssue.TASK;
+    },
+
+    sprintName: {
+      get() {
+        return this.$store.state.sprintName;
+      },
+      set(value) {
+        this.$store.state.sprintName = value;
+      }
     }
   },
 
@@ -62,7 +70,6 @@ export default {
 
     search() {
       let payload = {
-        sprintName: this.sprintName,
         typeOfIssue: this.typeOfIssue
       }
       this.$emit("change", payload);
