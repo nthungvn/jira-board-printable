@@ -58,7 +58,7 @@ export default {
         return this.$store.state.sprintName;
       },
       set(value) {
-        this.$store.state.sprintName = value;
+        this.$store.commit('sprintName', value);
       }
     }
   },
