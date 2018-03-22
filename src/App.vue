@@ -34,7 +34,7 @@ export default {
   methods: {
     searchIssuesCurrentSprint() {
       let handler = new SprintSearchHandler(this.$store.state.sprintName);
-      handler.execute(response => Object.assign(this, response), this.typeOfIssue);
+      handler.execute(response => this.updateSprint(response), this.typeOfIssue);
     },
 
     updateSprint(value) {
