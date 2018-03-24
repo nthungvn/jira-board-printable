@@ -62,7 +62,7 @@ export default {
 </script>
 
 <style <style lang="less" scoped>
-@import "./assets/css/jira-global.less";
+@import "./assets/css/jira-variables.less";
 
 .j-printable.j-rectangle {
   width: @story-page-width;

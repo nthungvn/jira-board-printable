@@ -62,7 +62,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../assets/css/jira-global.less";
+@import "../assets/css/jira-variables.less";
 
 .j-card {
   height: @card-height;
