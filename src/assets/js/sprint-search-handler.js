@@ -1,6 +1,7 @@
 import { jira } from '../../configs/vue-resource';
 import IssueHandler from './issue-handler'
 import TypeOfIssue from './type-of-issue'
+import Optional from '../../helpers/optional'
 
 export default class SprintSearchHandler {
   constructor(sprintName) {
@@ -23,7 +24,7 @@ export default class SprintSearchHandler {
     }, response => {
       result = {
         isError : true,
-        errorMessage : response.body.errorMessages[0],
+        errorMessage : Optional.ofNullable(response).map("body").map("errorMessages[0]").orElse(""),
         issues : []
       };
       callback(result);
