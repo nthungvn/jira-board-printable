@@ -13,4 +13,4 @@ const customActions = {
   }
 };
 
-export const jira = Vue.resource('', {}, customActions);
+export default Vue.resource('', {}, customActions);

@@ -1,4 +1,4 @@
-import { jira } from '../../configs/vue-resource';
+import Jira from '../../configs/vue-resource';
 import IssueHandler from './issue-handler'
 import TypeOfIssue from './type-of-issue'
 import Optional from '../../helpers/optional'
@@ -10,7 +10,7 @@ export default class SprintSearchHandler {
 
   execute(callback, typeOfIssue = TypeOfIssue.STORY) {
     let result = {};
-    jira.searchIssues({
+    Jira.searchIssues({
       jql: `Team = Innovation AND issuetype in standardIssueTypes() AND Sprint = "${this.sprintName}" ORDER BY Rank ASC`,
       fields: 'priority,issuetype,summary,assignee,subtasks,customfield_10002'
     }).then(response => {
