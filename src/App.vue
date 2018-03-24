@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <j-toolbar :searchAction="searchIssuesCurrentSprint" :numberOfIssues="numberOfIssues" @change="updateSprint"></j-toolbar>
+    <j-toolbar class="print-media" :searchAction="searchIssuesCurrentSprint" :numberOfIssues="numberOfIssues" @change="updateSprint"></j-toolbar>
 
     <v-content v-if="!isError">
       <div class="j-printable" :class="cardType">
@@ -14,6 +14,9 @@
         </v-alert>
       </v-layout>
     </v-content>
+    <v-btn class="print-media" fixed bottom right outline color="indigo" :href="github" target="_blank">
+      <v-icon>device_hub</v-icon>Forked me on GitHub
+    </v-btn>
   </v-app>
 </template>
 
@@ -49,6 +52,10 @@ export default {
 
     cardType() {
       return this.typeOfIssue == TypeOfIssue.STORY ? "j-rectangle" : "j-square";
+    },
+
+    github() {
+      return "https://github.com/nthungvn/jira-board-printable";
     }
   }
 };
