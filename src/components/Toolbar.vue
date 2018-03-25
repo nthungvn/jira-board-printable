@@ -40,7 +40,6 @@ export default {
 
   data() {
     return {
-      typeOfIssue: TypeOfIssue.STORY,
     }
   },
 
@@ -60,6 +59,15 @@ export default {
       set(value) {
         this.$store.commit('sprintName', value);
       }
+    },
+
+    typeOfIssue: {
+      get() {
+        return this.$store.state.typeOfIssue;
+      },
+      set(value) {
+        this.$store.commit('typeOfIssue', value);
+      }
     }
   },
 
@@ -69,10 +77,6 @@ export default {
     },
 
     search() {
-      let payload = {
-        typeOfIssue: this.typeOfIssue
-      }
-      this.$emit("change", payload);
       this.searchAction();
     }
 

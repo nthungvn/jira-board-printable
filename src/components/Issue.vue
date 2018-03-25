@@ -37,12 +37,6 @@ export default {
     },
     index: {
       type: Number
-    },
-    type: {
-      type: TypeOfIssue,
-      default() {
-        return TypeOfIssue.STORY;
-      }
     }
   },
 
@@ -55,7 +49,7 @@ export default {
 
   computed: {
     cardType() {
-      return this.type == TypeOfIssue.STORY ? "j-card-rectangle" : "j-card-square";
+      return this.$store.state.typeOfIssue == TypeOfIssue.STORY ? "j-card-rectangle" : "j-card-square";
     }
   }
 };

@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <j-toolbar class="print-media" :searchAction="searchIssuesCurrentSprint" :numberOfIssues="numberOfIssues" @change="updateSprint"></j-toolbar>
+    <j-toolbar class="print-media" :searchAction="searchIssuesCurrentSprint" :numberOfIssues="numberOfIssues"></j-toolbar>
 
     <v-content v-if="!isError">
       <div class="j-printable" :class="cardType">
-        <j-issue v-for='issue in issues' :key='issue.issueKey.key' :index='issue.index' :value='issue' :type='typeOfIssue'></j-issue>
+        <j-issue v-for='issue in issues' :key='issue.issueKey.key' :index='issue.index' :value='issue'></j-issue>
       </div>
     </v-content>
     <v-content v-else>
@@ -27,7 +27,6 @@ import TypeOfIssue from "./enums/type-of-issue";
 export default {
   data() {
     return {
-      typeOfIssue: TypeOfIssue.STORY,
       isError: false,
       errorMessage: "",
       issues: []
@@ -37,7 +36,7 @@ export default {
   methods: {
     searchIssuesCurrentSprint() {
       let handler = new SprintSearchHandler(this.$store.state.sprintName);
-      handler.execute(response => this.updateSprint(response), this.typeOfIssue);
+      handler.execute(response => this.updateSprint(response));
     },
 
     updateSprint(value) {
@@ -50,10 +49,16 @@ export default {
       return this.issues.length;
     },
 
+    /**
+     * Supports to renders cards in view
+     */
     cardType() {
-      return this.typeOfIssue == TypeOfIssue.STORY ? "j-rectangle" : "j-square";
+      return this.$store.state.typeOfIssue == TypeOfIssue.STORY ? "j-rectangle" : "j-square";
     },
 
+    /**
+     * Forked me in GitHub
+     */
     github() {
       return "https://github.com/nthungvn/jira-board-printable";
     }

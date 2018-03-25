@@ -3,17 +3,20 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
+import TypeOfIssue from '../enums/type-of-issue'
+
 export default new Vuex.Store({
   strict: true,
   state: {
-    sprintName: process.env.INITIALIZATION_SPRINT_BOARD
+    sprintName: process.env.INITIALIZATION_SPRINT_BOARD,
+    typeOfIssue: TypeOfIssue.STORY
   },
 
   getters: {
-    sprintName: state => state.sprintName,
   },
 
   mutations: {
-    sprintName: (state, value) => state.sprintName = value
+    sprintName: (state, value) => state.sprintName = value,
+    typeOfIssue: (state, value) => state.typeOfIssue = value,
   }
 });

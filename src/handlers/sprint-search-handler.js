@@ -2,13 +2,14 @@ import Jira from '../configs/vue-resource';
 import IssueHandler from './issue-handler'
 import TypeOfIssue from '../enums/type-of-issue'
 import Optional from '../helpers/optional'
+import Store from '../store'
 
 export default class SprintSearchHandler {
   constructor(sprintName) {
     this.sprintName = sprintName;
   }
 
-  execute(callback, typeOfIssue = TypeOfIssue.STORY) {
+  execute(callback) {
     let result = {};
     Jira.searchIssues({
       jql: `Team = Innovation AND issuetype in standardIssueTypes() AND Sprint = "${this.sprintName}" ORDER BY Rank ASC`,
@@ -18,7 +19,7 @@ export default class SprintSearchHandler {
       result = {
         isError : false,
         errorMessage: '',
-        issues : typeOfIssue == TypeOfIssue.STORY ? issueHandler.getStories() : issueHandler.getTasks()
+        issues : Store.state.typeOfIssue == TypeOfIssue.STORY ? issueHandler.getStories() : issueHandler.getTasks()
       };
       callback(result);
     }, response => {
