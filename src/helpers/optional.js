@@ -1,4 +1,4 @@
-import StringUtils from './string-utils'
+import NullUtils from './null-utils'
 
 export default class Optional {
   constructor(value) {
@@ -14,7 +14,7 @@ export default class Optional {
   }
 
   isPresent() {
-    return StringUtils.isBlank(this.value);
+    return NullUtils.isNull(this.value);
   }
 
   ifPresent(consumer) {
