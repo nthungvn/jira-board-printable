@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import SprintSearchHandler from "./assets/js/sprint-search-handler";
-import TypeOfIssue from "./assets/js/type-of-issue";
+import SprintSearchHandler from "./handlers/sprint-search-handler";
+import TypeOfIssue from "./enums/type-of-issue";
 
 export default {
   data() {

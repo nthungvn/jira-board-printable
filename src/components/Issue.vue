@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import TypeOfIssue from "../assets/js/type-of-issue";
+import TypeOfIssue from "../enums/type-of-issue";
 
 export default {
   props: {
