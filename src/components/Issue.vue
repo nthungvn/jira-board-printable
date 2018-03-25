@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import TypeOfIssue from "../assets/js/type-of-issue";
+import TypeOfIssue from "../enums/type-of-issue";
 
 export default {
   props: {
@@ -37,12 +37,6 @@ export default {
     },
     index: {
       type: Number
-    },
-    type: {
-      type: TypeOfIssue,
-      default() {
-        return TypeOfIssue.STORY;
-      }
     }
   },
 
@@ -55,14 +49,14 @@ export default {
 
   computed: {
     cardType() {
-      return this.type == TypeOfIssue.STORY ? "j-card-rectangle" : "j-card-square";
+      return this.$store.state.typeOfIssue == TypeOfIssue.STORY ? "j-card-rectangle" : "j-card-square";
     }
   }
 };
 </script>
 
 <style lang="less" scoped>
-@import "../assets/css/jira-global.less";
+@import "../assets/css/jira-variables.less";
 
 .j-card {
   height: @card-height;

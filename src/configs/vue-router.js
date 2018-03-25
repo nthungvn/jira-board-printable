@@ -1,7 +1,12 @@
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+
 import Stories from '../components/Stories.vue'
 import Tasks from '../components/Tasks.vue'
 
-export const routes = [{
+Vue.use(VueRouter);
+
+const routes = [{
     path: "",
     component: Stories
   },
@@ -14,3 +19,9 @@ export const routes = [{
     component: Tasks
   }
 ];
+
+export default new VueRouter({
+  mode: 'history',
+  routes
+});
+

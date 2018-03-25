@@ -1,7 +1,9 @@
+import Optional from '../helpers/optional'
+
 export default class IssueHandler {
 
   constructor(rawResponse) {
-    this.rawIssues = rawResponse.issues || [];
+    this.rawIssues = Optional.ofNullable(rawResponse).map("body").map("issues").orElse([]);
   };
 
   /**

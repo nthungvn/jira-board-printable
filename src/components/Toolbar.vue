@@ -23,35 +23,16 @@
 </template>
 
 <script>
-import TypeOfIssue from "../assets/js/type-of-issue";
+import { mapGetters } from 'vuex'
+import SprintSearchHandler from "../handlers/sprint-search-handler";
+import TypeOfIssue from "../enums/type-of-issue";
 
 export default {
   props: {
-    searchAction: {
-      type: Function,
-      required: true
-    },
-
-    numberOfIssues: {
-      type: Number,
-      default: 0
-    }
   },
 
   data() {
     return {
-      typeOfIssue: TypeOfIssue.STORY,
-      sprintName: process.env.INITIALIZATION_SPRINT_BOARD
-    }
-  },
-
-  computed: {
-    story() {
-      return TypeOfIssue.STORY;
-    },
-
-    task() {
-      return TypeOfIssue.TASK;
     }
   },
 
@@ -61,14 +42,38 @@ export default {
     },
 
     search() {
-      let payload = {
-        sprintName: this.sprintName,
-        typeOfIssue: this.typeOfIssue
-      }
-      this.$emit("change", payload);
-      this.searchAction();
+      SprintSearchHandler.createInstance(this.$store.state.sprintName).execute();
     }
+  },
 
+  computed: {
+    ...mapGetters(['numberOfIssues']),
+
+    story() {
+      return TypeOfIssue.STORY;
+    },
+
+    task() {
+      return TypeOfIssue.TASK;
+    },
+
+    sprintName: {
+      get() {
+        return this.$store.state.sprintName;
+      },
+      set(value) {
+        this.$store.commit('sprintName', value);
+      }
+    },
+
+    typeOfIssue: {
+      get() {
+        return this.$store.state.typeOfIssue;
+      },
+      set(value) {
+        this.$store.commit('typeOfIssue', value);
+      }
+    }
   }
 }
 </script>

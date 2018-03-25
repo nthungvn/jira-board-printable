@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <j-toolbar :searchAction="searchIssuesCurrentSprint" :numberOfIssues="numberOfIssues" @change="updateSprint"></j-toolbar>
+    <j-toolbar class="print-media"></j-toolbar>
 
     <v-content v-if="!isError">
       <div class="j-printable" :class="cardType">
-        <j-issue v-for='issue in issues' :key='issue.issueKey.key' :index='issue.index' :value='issue' :type='typeOfIssue'></j-issue>
+        <j-issue v-for='issue in issues' :key='issue.issueKey.key' :index='issue.index' :value='issue'></j-issue>
       </div>
     </v-content>
     <v-content v-else>
@@ -14,49 +14,47 @@
         </v-alert>
       </v-layout>
     </v-content>
+    <v-btn class="print-media" fixed bottom right outline color="indigo" :href="github" target="_blank">
+      <v-icon>device_hub</v-icon>Forked me on GitHub
+    </v-btn>
   </v-app>
 </template>
 
 <script>
-import SprintSearchHandler from "./assets/js/sprint-search-handler";
-import TypeOfIssue from "./assets/js/type-of-issue";
+import { mapGetters } from 'vuex';
+import TypeOfIssue from "./enums/type-of-issue";
 
 export default {
   data() {
     return {
-      sprintName: "",
-      typeOfIssue: TypeOfIssue.STORY,
-      isError: false,
-      errorMessage: "",
-      issues: []
     };
   },
 
   methods: {
-    searchIssuesCurrentSprint() {
-      let handler = new SprintSearchHandler(this.sprintName);
-      handler.execute(response => Object.assign(this, response), this.typeOfIssue);
-    },
-
-    updateSprint(value) {
-      Object.assign(this, value);
-    }
   },
 
   computed: {
-    numberOfIssues() {
-      return this.issues.length;
+    ...mapGetters(['isError', 'errorMessage', 'issues']),
+
+    /**
+     * Supports to renders cards in view
+     */
+    cardType() {
+      return this.$store.state.typeOfIssue == TypeOfIssue.STORY ? "j-rectangle" : "j-square";
     },
 
-    cardType() {
-      return this.typeOfIssue == TypeOfIssue.STORY ? "j-rectangle" : "j-square";
+    /**
+     * Forked me in GitHub
+     */
+    github() {
+      return "https://github.com/nthungvn/jira-board-printable";
     }
   }
 };
 </script>
 
 <style <style lang="less" scoped>
-@import "./assets/css/jira-global.less";
+@import "./assets/css/jira-variables.less";
 
 .j-printable.j-rectangle {
   width: @story-page-width;
