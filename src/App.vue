@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <j-toolbar class="print-media" :searchAction="searchIssuesCurrentSprint"></j-toolbar>
+    <j-toolbar class="print-media"></j-toolbar>
 
     <v-content v-if="!isError">
       <div class="j-printable" :class="cardType">
@@ -21,9 +21,8 @@
 </template>
 
 <script>
-import SprintSearchHandler from "./handlers/sprint-search-handler";
-import TypeOfIssue from "./enums/type-of-issue";
 import { mapGetters } from 'vuex';
+import TypeOfIssue from "./enums/type-of-issue";
 
 export default {
   data() {
@@ -32,10 +31,6 @@ export default {
   },
 
   methods: {
-    searchIssuesCurrentSprint() {
-      let handler = new SprintSearchHandler(this.$store.state.sprintName);
-      handler.execute();
-    }
   },
 
   computed: {

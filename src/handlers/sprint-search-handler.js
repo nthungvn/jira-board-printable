@@ -9,6 +9,10 @@ export default class SprintSearchHandler {
     this.sprintName = sprintName;
   }
 
+  static createInstance(sprintName) {
+    return new SprintSearchHandler(sprintName);
+  }
+
   execute() {
     let result = {};
     Jira.searchIssues({

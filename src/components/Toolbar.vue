@@ -23,15 +23,12 @@
 </template>
 
 <script>
-import TypeOfIssue from "../enums/type-of-issue";
 import { mapGetters } from 'vuex'
+import SprintSearchHandler from "../handlers/sprint-search-handler";
+import TypeOfIssue from "../enums/type-of-issue";
 
 export default {
   props: {
-    searchAction: {
-      type: Function,
-      required: true
-    }
   },
 
   data() {
@@ -39,7 +36,19 @@ export default {
     }
   },
 
+  methods: {
+    openPrintDialog() {
+      window.print();
+    },
+
+    search() {
+      SprintSearchHandler.createInstance(this.$store.state.sprintName).execute();
+    }
+  },
+
   computed: {
+    ...mapGetters(['numberOfIssues']),
+
     story() {
       return TypeOfIssue.STORY;
     },
@@ -64,20 +73,7 @@ export default {
       set(value) {
         this.$store.commit('typeOfIssue', value);
       }
-    },
-
-    ...mapGetters(['numberOfIssues'])
-  },
-
-  methods: {
-    openPrintDialog() {
-      window.print();
-    },
-
-    search() {
-      this.searchAction();
     }
-
   }
 }
 </script>
