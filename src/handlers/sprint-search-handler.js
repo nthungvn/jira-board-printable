@@ -1,8 +1,8 @@
 import Jira from '../configs/vue-resource';
-import IssueHandler from './issue-handler'
-import TypeOfIssue from '../enums/type-of-issue'
-import Optional from '../helpers/optional'
-import Store from '../store'
+import IssueHandler from './issue-handler';
+import TypeOfIssue from '../enums/type-of-issue';
+import Optional from '../helpers/optional';
+import Store from '../store';
 
 export default class SprintSearchHandler {
   constructor(sprintName) {

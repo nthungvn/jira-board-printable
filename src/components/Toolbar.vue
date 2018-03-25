@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex';
 import SprintSearchHandler from "../handlers/sprint-search-handler";
 import TypeOfIssue from "../enums/type-of-issue";
 

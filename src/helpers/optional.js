@@ -1,4 +1,4 @@
-import NullUtils from './null-utils'
+import NullUtils from './null-utils';
 
 export default class Optional {
   constructor(value) {
