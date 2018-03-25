@@ -24,6 +24,7 @@
 
 <script>
 import TypeOfIssue from "../enums/type-of-issue";
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -65,9 +66,7 @@ export default {
       }
     },
 
-    numberOfIssues() {
-      return this.$store.state.dossier.issues.length;
-    }
+    ...mapGetters(['numberOfIssues'])
   },
 
   methods: {

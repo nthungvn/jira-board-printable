@@ -23,6 +23,7 @@
 <script>
 import SprintSearchHandler from "./handlers/sprint-search-handler";
 import TypeOfIssue from "./enums/type-of-issue";
+import { mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -38,17 +39,7 @@ export default {
   },
 
   computed: {
-    isError() {
-      return this.$store.state.dossier.isError;
-    },
-
-    errorMessage() {
-      return this.$store.state.dossier.errorMessage;
-    },
-
-    issues() {
-      return this.$store.state.dossier.issues;
-    },
+    ...mapGetters(['isError', 'errorMessage', 'issues']),
 
     /**
      * Supports to renders cards in view

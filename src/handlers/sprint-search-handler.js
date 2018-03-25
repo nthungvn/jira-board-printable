@@ -15,20 +15,19 @@ export default class SprintSearchHandler {
       jql: `Team = Innovation AND issuetype in standardIssueTypes() AND Sprint = "${this.sprintName}" ORDER BY Rank ASC`,
       fields: 'priority,issuetype,summary,assignee,subtasks,customfield_10002'
     }).then(response => {
-      let issueHandler = new IssueHandler(response.body);
       result = {
         isError : false,
         errorMessage: '',
-        issues : Store.state.typeOfIssue == TypeOfIssue.STORY ? issueHandler.getStories() : issueHandler.getTasks()
+        issueHandler: new IssueHandler(response)
       };
-      Store.commit('updateDossier', result);
+      Store.commit('updateRestfulData', result);
     }, response => {
       result = {
         isError : true,
         errorMessage : Optional.ofNullable(response).map("body").map("errorMessages[0]").orElse(""),
-        issues : []
+        issueHandler: new IssueHandler(undefined)
       };
-      Store.commit('updateDossier', result);
+      Store.commit('updateRestfulData', result);
     });
   }
 }
