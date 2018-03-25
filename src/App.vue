@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <j-toolbar class="print-media" :searchAction="searchIssuesCurrentSprint" :numberOfIssues="numberOfIssues"></j-toolbar>
+    <j-toolbar class="print-media" :searchAction="searchIssuesCurrentSprint"></j-toolbar>
 
     <v-content v-if="!isError">
       <div class="j-printable" :class="cardType">
@@ -27,26 +27,27 @@ import TypeOfIssue from "./enums/type-of-issue";
 export default {
   data() {
     return {
-      isError: false,
-      errorMessage: "",
-      issues: []
     };
   },
 
   methods: {
     searchIssuesCurrentSprint() {
       let handler = new SprintSearchHandler(this.$store.state.sprintName);
-      handler.execute(response => this.updateSprint(response));
-    },
-
-    updateSprint(value) {
-      Object.assign(this, value);
+      handler.execute();
     }
   },
 
   computed: {
-    numberOfIssues() {
-      return this.issues.length;
+    isError() {
+      return this.$store.state.dossier.isError;
+    },
+
+    errorMessage() {
+      return this.$store.state.dossier.errorMessage;
+    },
+
+    issues() {
+      return this.$store.state.dossier.issues;
     },
 
     /**

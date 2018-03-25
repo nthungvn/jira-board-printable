@@ -30,11 +30,6 @@ export default {
     searchAction: {
       type: Function,
       required: true
-    },
-
-    numberOfIssues: {
-      type: Number,
-      default: 0
     }
   },
 
@@ -68,6 +63,10 @@ export default {
       set(value) {
         this.$store.commit('typeOfIssue', value);
       }
+    },
+
+    numberOfIssues() {
+      return this.$store.state.dossier.issues.length;
     }
   },
 

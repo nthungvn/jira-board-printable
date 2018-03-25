@@ -9,7 +9,7 @@ export default class SprintSearchHandler {
     this.sprintName = sprintName;
   }
 
-  execute(callback) {
+  execute() {
     let result = {};
     Jira.searchIssues({
       jql: `Team = Innovation AND issuetype in standardIssueTypes() AND Sprint = "${this.sprintName}" ORDER BY Rank ASC`,
@@ -21,14 +21,14 @@ export default class SprintSearchHandler {
         errorMessage: '',
         issues : Store.state.typeOfIssue == TypeOfIssue.STORY ? issueHandler.getStories() : issueHandler.getTasks()
       };
-      callback(result);
+      Store.commit('updateDossier', result);
     }, response => {
       result = {
         isError : true,
         errorMessage : Optional.ofNullable(response).map("body").map("errorMessages[0]").orElse(""),
         issues : []
       };
-      callback(result);
+      Store.commit('updateDossier', result);
     });
   }
 }

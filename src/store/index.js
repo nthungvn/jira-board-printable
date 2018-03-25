@@ -9,7 +9,12 @@ export default new Vuex.Store({
   strict: true,
   state: {
     sprintName: process.env.INITIALIZATION_SPRINT_BOARD,
-    typeOfIssue: TypeOfIssue.STORY
+    typeOfIssue: TypeOfIssue.STORY,
+    dossier: {
+      isError: false,
+      errorMessage: "",
+      issues: []
+    }
   },
 
   getters: {
@@ -18,5 +23,6 @@ export default new Vuex.Store({
   mutations: {
     sprintName: (state, value) => state.sprintName = value,
     typeOfIssue: (state, value) => state.typeOfIssue = value,
+    updateDossier: (state, value) => Object.assign(state.dossier, value),
   }
 });
