@@ -14,24 +14,28 @@ export default class SprintSearchHandler {
   }
 
   execute() {
-    let result = {};
+    let payload = {};
     Jira.searchIssues({
       jql: `Team = ${Store.state.teamName} AND issuetype in standardIssueTypes() AND Sprint = "${this.sprintName}" ORDER BY Rank ASC`,
       fields: 'priority,issuetype,summary,assignee,subtasks,customfield_10002'
     }).then(response => {
-      result = {
-        isError : false,
-        errorMessage: '',
+      payload = {
+        errorHandling: {
+          isError : false,
+          errorMessage: '',
+        },
         issueHandler: new IssueHandler(response)
       };
-      Store.commit('updateRestfulData', result);
+      Store.commit('updateRestfulData', payload);
     }, response => {
-      result = {
-        isError : true,
-        errorMessage : Optional.ofNullable(response).map("body").map("errorMessages[0]").orElse(""),
+      payload = {
+        errorHandling: {
+          isError : true,
+          errorMessage : Optional.ofNullable(response).map("body").map("errorMessages[0]").orElse(""),
+        },
         issueHandler: new IssueHandler(undefined)
       };
-      Store.commit('updateRestfulData', result);
+      Store.commit('updateRestfulData', payload);
     });
   }
 }

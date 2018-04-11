@@ -12,17 +12,17 @@ export default new Vuex.Store({
     teamName: process.env.TEAM_NAME,
     sprintName: process.env.INITIALIZATION_SPRINT_BOARD,
     typeOfIssue: TypeOfIssue.STORY,
-    rest: {
+    errorHandling: {
       isError: false,
-      errorMessage: "",
-      issueHandler: new IssueHandler(undefined)
+      errorMessage: ""
     },
+    issueHandler: new IssueHandler(undefined)
   },
 
   getters: {
-    isError: state => state.rest.isError,
-    errorMessage: state => state.rest.errorMessage,
-    issues: state => state.typeOfIssue == TypeOfIssue.STORY ? state.rest.issueHandler.getStories() : state.rest.issueHandler.getTasks(),
+    isError: state => state.errorHandling.isError,
+    errorMessage: state => state.errorHandling.errorMessage,
+    issues: state => state.typeOfIssue == TypeOfIssue.STORY ? state.issueHandler.getStories() : state.issueHandler.getTasks(),
     numberOfIssues: (state, getters) => getters.issues.length
   },
 
@@ -32,6 +32,6 @@ export default new Vuex.Store({
     typeOfIssue: (state, value) => state.typeOfIssue = value,
 
     // Action
-    updateRestfulData: (state, value) => Object.assign(state.rest, value),
+    updateRestfulData: (state, value) => Object.assign(state, value),
   }
 });
