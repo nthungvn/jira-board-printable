@@ -9,6 +9,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   strict: true,
   state: {
+    teamName: process.env.TEAM_NAME,
     sprintName: process.env.INITIALIZATION_SPRINT_BOARD,
     typeOfIssue: TypeOfIssue.STORY,
     rest: {

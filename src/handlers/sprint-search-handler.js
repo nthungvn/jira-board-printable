@@ -16,7 +16,7 @@ export default class SprintSearchHandler {
   execute() {
     let result = {};
     Jira.searchIssues({
-      jql: `Team = Innovation AND issuetype in standardIssueTypes() AND Sprint = "${this.sprintName}" ORDER BY Rank ASC`,
+      jql: `Team = ${Store.state.teamName} AND issuetype in standardIssueTypes() AND Sprint = "${this.sprintName}" ORDER BY Rank ASC`,
       fields: 'priority,issuetype,summary,assignee,subtasks,customfield_10002'
     }).then(response => {
       result = {
