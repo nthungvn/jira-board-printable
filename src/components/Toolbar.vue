@@ -12,8 +12,9 @@
     </v-btn-toggle>
 
     <v-layout align-center>
-      <v-text-field placeholder="Sprint name" single-line append-icon="search" color="white" hide-details
-        :append-icon-cb='search' v-model='sprintName'></v-text-field>
+      <v-select placeholder="Select or Enter sprint name" append-icon="search" autocomplete single-line hide-details
+        :items="sprintsSuggestion" v-model="sprintName" item-value="value" item-text="label"
+        :append-icon-cb="search"></v-select>
     </v-layout>
     <v-spacer></v-spacer>
 
@@ -47,7 +48,10 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['numberOfIssues']),
+    ...mapGetters([
+      'numberOfIssues',
+      'sprintsSuggestion'
+    ]),
 
     story() {
       return TypeOfIssue.STORY;

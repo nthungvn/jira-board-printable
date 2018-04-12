@@ -37,8 +37,8 @@ export default class SprintSuggestionHandler {
     return Optional.ofNullable(successData).map("body").map("results").orElse([])
       .map(el => {
         return {
-          id: el.value,
-          name: el.displayName.replace(/(\s*-.*\))|(\s*\(.*\))|<(.|\n)*?>/gm, '')
+          value: el.value,
+          label: el.displayName.replace(/(\s*-.*\))|(\s*\(.*\))|<(.|\n)*?>/gm, '')
         }
       })
   }

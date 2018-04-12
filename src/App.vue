@@ -23,6 +23,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import TypeOfIssue from "./enums/type-of-issue";
+import SprintSuggestionHandler from "./handlers/sprint-suggestion-handler"
 
 export default {
   data() {
@@ -49,6 +50,10 @@ export default {
     github() {
       return "https://github.com/nthungvn/jira-board-printable";
     }
+  },
+
+  created() {
+    SprintSuggestionHandler.INSTANCE.execute();
   }
 };
 </script>
