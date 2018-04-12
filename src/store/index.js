@@ -10,7 +10,7 @@ export default new Vuex.Store({
   strict: true,
   state: {
     teamName: process.env.TEAM_NAME,
-    sprintName: process.env.INITIALIZATION_SPRINT_BOARD,
+    selectedSprint: process.env.INITIALIZATION_SPRINT_BOARD,
     typeOfIssue: TypeOfIssue.STORY,
     errorHandling: {
       isError: false,
@@ -30,7 +30,7 @@ export default new Vuex.Store({
 
   mutations: {
     // Property
-    sprintName: (state, value) => state.sprintName = value,
+    selectedSprint: (state, value) => state.selectedSprint = value,
     typeOfIssue: (state, value) => state.typeOfIssue = value,
 
     // Action

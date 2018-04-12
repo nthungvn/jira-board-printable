@@ -13,7 +13,7 @@
 
     <v-layout align-center>
       <v-select placeholder="Select or Enter sprint name" append-icon="search" autocomplete single-line hide-details
-        :items="sprintsSuggestion" v-model="sprintName" item-value="value" item-text="label"
+        :items="sprintsSuggestion" v-model="selectedSprint" item-value="value" item-text="label"
         :append-icon-cb="search"></v-select>
     </v-layout>
     <v-spacer></v-spacer>
@@ -43,7 +43,7 @@ export default {
     },
 
     search() {
-      SprintSearchHandler.createInstance(this.$store.state.sprintName).execute();
+      SprintSearchHandler.createInstance(this.$store.state.selectedSprint).execute();
     }
   },
 
@@ -61,12 +61,12 @@ export default {
       return TypeOfIssue.TASK;
     },
 
-    sprintName: {
+    selectedSprint: {
       get() {
-        return this.$store.state.sprintName;
+        return this.$store.state.selectedSprint;
       },
       set(value) {
-        this.$store.commit('sprintName', value);
+        this.$store.commit('selectedSprint', value);
       }
     },
 

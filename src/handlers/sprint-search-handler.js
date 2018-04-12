@@ -5,18 +5,18 @@ import Optional from '../helpers/optional';
 import Store from '../store';
 
 export default class SprintSearchHandler {
-  constructor(sprintName) {
-    this.sprintName = sprintName;
+  constructor(selectedSprint) {
+    this.selectedSprint = selectedSprint;
   }
 
-  static createInstance(sprintName) {
-    return new SprintSearchHandler(sprintName);
+  static createInstance(selectedSprint) {
+    return new SprintSearchHandler(selectedSprint);
   }
 
   execute() {
     let payload = {};
     Jira.searchIssues({
-      jql: `Team = "${Store.state.teamName}" AND issuetype in standardIssueTypes() AND Sprint = ${this.sprintName} ORDER BY Rank ASC`,
+      jql: `Team = "${Store.state.teamName}" AND issuetype in standardIssueTypes() AND Sprint = ${this.selectedSprint} ORDER BY Rank ASC`,
       fields: 'priority,issuetype,summary,assignee,subtasks,customfield_10002'
     }).then(success => {
       payload = {
