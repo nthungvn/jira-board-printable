@@ -10,7 +10,7 @@ export default new Vuex.Store({
   strict: true,
   state: {
     teamName: process.env.TEAM_NAME,
-    selectedSprint: process.env.INITIALIZATION_SPRINT_BOARD,
+    selectedSprint: "undefined",
     typeOfIssue: TypeOfIssue.STORY,
     errorHandling: {
       isError: false,
