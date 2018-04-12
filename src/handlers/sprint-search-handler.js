@@ -18,20 +18,20 @@ export default class SprintSearchHandler {
     Jira.searchIssues({
       jql: `Team = ${Store.state.teamName} AND issuetype in standardIssueTypes() AND Sprint = "${this.sprintName}" ORDER BY Rank ASC`,
       fields: 'priority,issuetype,summary,assignee,subtasks,customfield_10002'
-    }).then(response => {
+    }).then(success => {
       payload = {
         errorHandling: {
-          isError : false,
+          isError: false,
           errorMessage: '',
         },
-        issueHandler: new IssueHandler(response)
+        issueHandler: new IssueHandler(success)
       };
       Store.commit('updateRestfulData', payload);
-    }, response => {
+    }, error => {
       payload = {
         errorHandling: {
-          isError : true,
-          errorMessage : Optional.ofNullable(response).map("body").map("errorMessages[0]").orElse(""),
+          isError: true,
+          errorMessage: Optional.ofNullable(error).map("body").map("errorMessages[0]").orElse(""),
         },
         issueHandler: new IssueHandler(undefined)
       };
