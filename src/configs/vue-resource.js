@@ -10,6 +10,11 @@ const customActions = {
   searchIssues: {
     method: 'GET',
     url: 'api/2/search'
+  },
+
+  getFieldSuggestion: {
+    method: 'GET',
+    url: 'api/2/jql/autocompletedata/suggestions'
   }
 };
 

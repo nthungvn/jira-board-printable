@@ -16,7 +16,8 @@ export default new Vuex.Store({
       isError: false,
       errorMessage: ""
     },
-    issueHandler: new IssueHandler(undefined)
+    issueHandler: new IssueHandler(undefined),
+    sprintsSuggestion: []
   },
 
   getters: {
