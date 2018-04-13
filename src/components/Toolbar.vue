@@ -12,7 +12,7 @@
     </v-btn-toggle>
 
     <v-layout align-center>
-      <v-select placeholder="Select or Enter sprint name" append-icon="search" autocomplete single-line hide-details
+      <v-select placeholder="Select or Enter sprint name" append-icon="search" autocomplete single-line hide-details cache-items
         :items="sprintsSuggestion" v-model="selectedSprint" item-value="value" item-text="label" :search-input.sync="searchValue"
         :append-icon-cb="search"></v-select>
     </v-layout>
@@ -47,6 +47,10 @@ export default {
 
     search() {
       SprintSearchHandler.createInstance(this.selectedSprint).execute();
+    },
+
+    shouldHasNewSearch(selectedSprint) {
+      return this.sprintsSuggestion.filter(el => el.label == selectedSprint).length == 0;
     }
   },
 
@@ -88,7 +92,7 @@ export default {
     searchValue(value) {
       clearTimeout(this.typingTimer);
       this.typingTimer = setTimeout(() => {
-        value && SprintSuggestionHandler.createInstance(value).execute();
+        value && this.shouldHasNewSearch(value) && SprintSuggestionHandler.createInstance(value).execute();
       }, 1000);
     }
   }
