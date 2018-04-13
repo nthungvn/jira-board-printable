@@ -9,28 +9,32 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   strict: true,
   state: {
-    sprintName: process.env.INITIALIZATION_SPRINT_BOARD,
+    teamName: process.env.TEAM_NAME,
+    selectedSprint: "undefined",
     typeOfIssue: TypeOfIssue.STORY,
-    rest: {
+    errorHandling: {
       isError: false,
-      errorMessage: "",
-      issueHandler: new IssueHandler(undefined)
+      errorMessage: ""
     },
+    issueHandler: new IssueHandler(undefined),
+    sprintsSuggestion: []
   },
 
   getters: {
-    isError: state => state.rest.isError,
-    errorMessage: state => state.rest.errorMessage,
-    issues: state => state.typeOfIssue == TypeOfIssue.STORY ? state.rest.issueHandler.getStories() : state.rest.issueHandler.getTasks(),
-    numberOfIssues: (state, getters) => getters.issues.length
+    selectedSprint: state => state.selectedSprint,
+    isError: state => state.errorHandling.isError,
+    errorMessage: state => state.errorHandling.errorMessage,
+    issues: state => state.typeOfIssue == TypeOfIssue.STORY ? state.issueHandler.getStories() : state.issueHandler.getTasks(),
+    numberOfIssues: (state, getters) => getters.issues.length,
+    sprintsSuggestion: state => state.sprintsSuggestion
   },
 
   mutations: {
     // Property
-    sprintName: (state, value) => state.sprintName = value,
+    selectedSprint: (state, value) => state.selectedSprint = value,
     typeOfIssue: (state, value) => state.typeOfIssue = value,
 
     // Action
-    updateRestfulData: (state, value) => Object.assign(state.rest, value),
+    updateRestfulData: (state, value) => Object.assign(state, value),
   }
 });

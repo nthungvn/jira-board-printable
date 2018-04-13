@@ -1,4 +1,4 @@
-import Optional from '../helpers/optional'
+import Optional from '../helpers/optional';
 
 export default class IssueHandler {
 

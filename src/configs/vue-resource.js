@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import VueResource from 'vue-resource'
+import Vue from 'vue';
+import VueResource from 'vue-resource';
 
 Vue.use(VueResource);
 
@@ -10,6 +10,11 @@ const customActions = {
   searchIssues: {
     method: 'GET',
     url: 'api/2/search'
+  },
+
+  getFieldSuggestion: {
+    method: 'GET',
+    url: 'api/2/jql/autocompletedata/suggestions'
   }
 };
 

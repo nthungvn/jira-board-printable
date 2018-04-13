@@ -12,8 +12,9 @@
     </v-btn-toggle>
 
     <v-layout align-center>
-      <v-text-field placeholder="Sprint name" single-line append-icon="search" color="white" hide-details
-        :append-icon-cb='search' v-model='sprintName'></v-text-field>
+      <v-select placeholder="Select or Enter sprint name" append-icon="search" autocomplete single-line hide-details cache-items
+        :items="sprintsSuggestion" v-model="selectedSprint" item-value="value" item-text="label" :search-input.sync="searchValue"
+        :append-icon-cb="search"></v-select>
     </v-layout>
     <v-spacer></v-spacer>
 
@@ -23,8 +24,9 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex';
 import SprintSearchHandler from "../handlers/sprint-search-handler";
+import SprintSuggestionHandler from "../handlers/sprint-suggestion-handler";
 import TypeOfIssue from "../enums/type-of-issue";
 
 export default {
@@ -33,6 +35,8 @@ export default {
 
   data() {
     return {
+      searchValue: "",
+      typingTimer: undefined
     }
   },
 
@@ -42,12 +46,20 @@ export default {
     },
 
     search() {
-      SprintSearchHandler.createInstance(this.$store.state.sprintName).execute();
+      SprintSearchHandler.createInstance(this.selectedSprint).execute();
+    },
+
+    shouldHasNewSearch(selectedSprint) {
+      return this.sprintsSuggestion.filter(el => el.label == selectedSprint).length == 0;
     }
   },
 
   computed: {
-    ...mapGetters(['numberOfIssues']),
+    ...mapGetters([
+      'selectedSprint',
+      'numberOfIssues',
+      'sprintsSuggestion'
+    ]),
 
     story() {
       return TypeOfIssue.STORY;
@@ -57,12 +69,12 @@ export default {
       return TypeOfIssue.TASK;
     },
 
-    sprintName: {
+    selectedSprint: {
       get() {
-        return this.$store.state.sprintName;
+        return this.$store.state.selectedSprint;
       },
       set(value) {
-        this.$store.commit('sprintName', value);
+        this.$store.commit('selectedSprint', value);
       }
     },
 
@@ -73,6 +85,15 @@ export default {
       set(value) {
         this.$store.commit('typeOfIssue', value);
       }
+    }
+  },
+
+  watch: {
+    searchValue(value) {
+      clearTimeout(this.typingTimer);
+      this.typingTimer = setTimeout(() => {
+        value && this.shouldHasNewSearch(value) && SprintSuggestionHandler.createInstance(value).execute();
+      }, 1000);
     }
   }
 }

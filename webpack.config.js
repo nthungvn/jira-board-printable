@@ -67,7 +67,7 @@ module.exports = {
       'process.env': {
         'API_BASE_PATH': JSON.stringify(process.env.API_BASE_PATH),
         'API_AUTHORIZATION': JSON.stringify(process.env.API_AUTHORIZATION),
-        'INITIALIZATION_SPRINT_BOARD': JSON.stringify(process.env.INITIALIZATION_SPRINT_BOARD)
+        'TEAM_NAME': JSON.stringify(process.env.TEAM_NAME)
       }
     })
   ],
