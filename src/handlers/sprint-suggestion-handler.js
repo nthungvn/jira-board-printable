@@ -7,6 +7,10 @@ export default class SprintSuggestionHandler {
     this.teamName = teamName;
   }
 
+  static createInstance(teamName) {
+    return new SprintSuggestionHandler(teamName);
+  }
+
   execute() {
     let payload = {};
     Jira.getFieldSuggestion({

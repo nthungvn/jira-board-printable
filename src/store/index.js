@@ -21,6 +21,7 @@ export default new Vuex.Store({
   },
 
   getters: {
+    selectedSprint: state => state.selectedSprint,
     isError: state => state.errorHandling.isError,
     errorMessage: state => state.errorHandling.errorMessage,
     issues: state => state.typeOfIssue == TypeOfIssue.STORY ? state.issueHandler.getStories() : state.issueHandler.getTasks(),

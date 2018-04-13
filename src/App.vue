@@ -50,10 +50,6 @@ export default {
     github() {
       return "https://github.com/nthungvn/jira-board-printable";
     }
-  },
-
-  created() {
-    SprintSuggestionHandler.INSTANCE.execute();
   }
 };
 </script>
