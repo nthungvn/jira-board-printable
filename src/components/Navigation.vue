@@ -1,13 +1,19 @@
 <template>
-    <v-navigation-drawer fixed clipped app>
+    <v-navigation-drawer fixed clipped app v-model="isShow">
       <v-subheader class="mt-3">FILTERS</v-subheader>
       <v-divider></v-divider>
     </v-navigation-drawer>
 </template>
 
 <script>
-export default {
+import { mapGetters } from 'vuex';
 
+export default {
+  computed: {
+    ...mapGetters({
+      isShow: "isShowNavigation"
+    })
+  }
 }
 </script>
 

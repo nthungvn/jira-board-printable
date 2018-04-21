@@ -17,7 +17,10 @@ export default new Vuex.Store({
       errorMessage: ""
     },
     issueHandler: new IssueHandler(undefined),
-    sprintsSuggestion: []
+    sprintsSuggestion: [],
+    viewBean: {
+      navigation: true
+    }
   },
 
   getters: {
@@ -26,7 +29,8 @@ export default new Vuex.Store({
     errorMessage: state => state.errorHandling.errorMessage,
     issues: state => state.typeOfIssue == TypeOfIssue.STORY ? state.issueHandler.getStories() : state.issueHandler.getTasks(),
     numberOfIssues: (state, getters) => getters.issues.length,
-    sprintsSuggestion: state => state.sprintsSuggestion
+    sprintsSuggestion: state => state.sprintsSuggestion,
+    isShowNavigation: state => state.viewBean.navigation
   },
 
   mutations: {
@@ -36,5 +40,6 @@ export default new Vuex.Store({
 
     // Action
     updateRestfulData: (state, value) => Object.assign(state, value),
+    toggleNavigation: state => state.viewBean.navigation = !state.viewBean.navigation,
   }
 });
