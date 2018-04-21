@@ -34,6 +34,13 @@ export default class Optional {
     return Optional.empty();
   }
 
+  get() {
+    if (this.isPresent()) {
+      return this.value;
+    }
+    throw new ReferenceError("No value present");
+  }
+
   orElse(value) {
     return this.isPresent() ? this.value : value;
   }
