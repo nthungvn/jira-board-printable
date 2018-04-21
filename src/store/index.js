@@ -18,6 +18,10 @@ export default new Vuex.Store({
     },
     issueHandler: new IssueHandler(undefined),
     sprintsSuggestion: [],
+    filters: {
+      include: "",
+      exclude: ""
+    },
     viewBean: {
       navigation: true
     }
@@ -41,5 +45,7 @@ export default new Vuex.Store({
     // Action
     updateRestfulData: (state, value) => Object.assign(state, value),
     toggleNavigation: state => state.viewBean.navigation = !state.viewBean.navigation,
+    filterIncludes: (state, value) => state.filters.include = value,
+    filterExcludes: (state, value) => state.filters.exclude = value,
   }
 });
