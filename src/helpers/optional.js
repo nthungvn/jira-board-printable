@@ -14,7 +14,7 @@ export default class Optional {
   }
 
   isPresent() {
-    return NullUtils.isNull(this.value);
+    return NullUtils.isNotNull(this.value);
   }
 
   ifPresent(consumer) {
