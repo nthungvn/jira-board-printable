@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import TypeOfIssue from '../enums/type-of-issue'
-import IssueHandler from '../handlers/issue-handler'
+import TypeOfIssue from '../enums/type-of-issue';
+import IssueHandler from '../handlers/issue-handler';
+import IssueFilter from '../helpers/issue-filter';
 
 Vue.use(Vuex);
 
@@ -31,7 +32,10 @@ export default new Vuex.Store({
     selectedSprint: state => state.selectedSprint,
     isError: state => state.errorHandling.isError,
     errorMessage: state => state.errorHandling.errorMessage,
-    issues: state => state.typeOfIssue == TypeOfIssue.STORY ? state.issueHandler.getStories() : state.issueHandler.getTasks(),
+    issues: state => {
+      let originialIssues = state.typeOfIssue == TypeOfIssue.STORY ? state.issueHandler.getStories() : state.issueHandler.getTasks();
+      return IssueFilter.INSTANCE.for(originialIssues).filter();
+    },
     numberOfIssues: (state, getters) => getters.issues.length,
     sprintsSuggestion: state => state.sprintsSuggestion,
     isShowNavigation: state => state.viewBean.navigation
