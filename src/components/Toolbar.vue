@@ -1,6 +1,6 @@
 <template>
   <v-toolbar color="blue darken-3" dark dense fixed clipped-left app>
-    <v-toolbar-side-icon></v-toolbar-side-icon>
+    <v-toolbar-side-icon @click.stop="toggleNavigation"></v-toolbar-side-icon>
     <v-toolbar-title class="mr-5 align-center">
       <span class="title">Jira Board Printable</span>
     </v-toolbar-title>
@@ -25,6 +25,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { mapMutations } from 'vuex';
 import SprintSearchHandler from "../handlers/sprint-search-handler";
 import SprintSuggestionHandler from "../handlers/sprint-suggestion-handler";
 import TypeOfIssue from "../enums/type-of-issue";
@@ -41,6 +42,10 @@ export default {
   },
 
   methods: {
+    ...mapMutations([
+      'toggleNavigation'
+    ]),
+
     openPrintDialog() {
       window.print();
     },

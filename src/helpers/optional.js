@@ -14,7 +14,7 @@ export default class Optional {
   }
 
   isPresent() {
-    return NullUtils.isNull(this.value);
+    return NullUtils.isNotNull(this.value);
   }
 
   ifPresent(consumer) {
@@ -32,6 +32,13 @@ export default class Optional {
       return Optional.ofNullable(this.value[match.input]);
     }
     return Optional.empty();
+  }
+
+  get() {
+    if (this.isPresent()) {
+      return this.value;
+    }
+    throw new ReferenceError("No value present");
   }
 
   orElse(value) {

@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <j-navigation class="print-media"></j-navigation>
     <j-toolbar class="print-media"></j-toolbar>
 
     <v-content v-if="!isError">
