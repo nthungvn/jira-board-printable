@@ -17,7 +17,7 @@ export default class SprintSearchHandler {
     let payload = {};
     Jira.searchIssues({
       jql: `Team = "${Store.state.teamName}" AND issuetype in standardIssueTypes() AND Sprint = ${this.selectedSprint} ORDER BY Rank ASC`,
-      fields: 'priority,issuetype,summary,assignee,subtasks,customfield_10002'
+      fields: 'priority,issuetype,summary,assignee,subtasks,customfield_10002,status'
     }).then(success => {
       payload = {
         errorHandling: {
@@ -31,7 +31,7 @@ export default class SprintSearchHandler {
       payload = {
         errorHandling: {
           isError: true,
-          errorMessage: Optional.ofNullable(error).map("body").map("errorMessages[0]").orElse(""),
+          errorMessage: Optional.ofNullable(error).mapJson("body").mapJson("errorMessages[0]").orElse(""),
         },
         issueHandler: new IssueHandler(undefined)
       };

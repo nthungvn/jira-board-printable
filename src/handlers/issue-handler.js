@@ -3,7 +3,7 @@ import Optional from '../helpers/optional';
 export default class IssueHandler {
 
   constructor(rawResponse) {
-    this.rawIssues = Optional.ofNullable(rawResponse).map("body").map("issues").orElse([]);
+    this.rawIssues = Optional.ofNullable(rawResponse).mapJson("body").mapJson("issues").orElse([]);
   };
 
   /**
@@ -22,7 +22,8 @@ export default class IssueHandler {
         summary: fields.summary,
         issueTypeUrl: this.__getIssueTypeUrl(fields.issuetype),
         priorityUrl: this.__getPriorityUrl(fields.priority),
-        issuePoints: fields.customfield_10002
+        issuePoints: fields.customfield_10002,
+        status: Optional.ofNullable(fields).map(fields => fields.status).map(status => status.name).orElse(""),
       })
     });
     return stories;
@@ -45,7 +46,8 @@ export default class IssueHandler {
           issueKey: key,
           summary: fields.summary,
           issueTypeUrl: this.__getIssueTypeUrl(fields.issuetype),
-          priorityUrl: this.__getPriorityUrl(fields.priority)
+          priorityUrl: this.__getPriorityUrl(fields.priority),
+          status: Optional.ofNullable(fields).map(fields => fields.status).map(status => status.name).orElse(""),
         })
       });
     });

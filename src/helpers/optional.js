@@ -23,7 +23,26 @@ export default class Optional {
     }
   }
 
-  map(name) {
+  /**
+   * Maps a original data to another. It is modified by mapper
+   * @param {Function} mapper A function recieve T and return R
+   * @example map(item => item.value)
+   * @returns Data are mapped
+   */
+  map(mapper) {
+    if (this.isPresent()) {
+      return Optional.ofNullable(mapper(this.value))
+    }
+    return Optional.empty();
+  }
+
+  /**
+   * Maps json object to sub key
+   * @param {String} name A string like we access to sub key in json object
+   * @example mapJson("parent.sub.subOfSub")
+   * @deprecated Uses method map instead if we want to get a properties in json object
+   */
+  mapJson(name) {
     if (this.isPresent()) {
       let match = name.match(/(\w*)\[(\d*)\]|(\w*)/);
       if (match[2]) {
