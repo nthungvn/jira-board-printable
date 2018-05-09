@@ -4,6 +4,7 @@
       <v-form class="filters">
         <v-text-field label="Includes" placeholder="Ex: Acrevis, ACR" clearable v-model="includes"></v-text-field>
         <v-text-field label="Excludes" placeholder="Ex: Crosstest" clearable v-model="excludes"></v-text-field>
+        <v-checkbox label="Done items" color="primary" v-model="isDoneItems"></v-checkbox>
       </v-form>
     </v-navigation-drawer>
 </template>
@@ -32,6 +33,16 @@ export default {
       },
       set(value) {
         this.$store.commit("filterExcludes", value);
+      }
+    },
+
+    isDoneItems: {
+      get() {
+        return this.$store.state.filters.isDoneItems
+      },
+
+      set(value) {
+        this.$store.commit("isDoneItems", value)
       }
     }
   }
