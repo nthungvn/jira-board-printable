@@ -29,7 +29,7 @@ export default class SprintSuggestionHandler {
       payload = {
         errorHandling: {
           isError: true,
-          errorMessage: Optional.ofNullable(error).map("body").map("errorMessages[0]").orElse(""),
+          errorMessage: Optional.ofNullable(error).mapJson("body").mapJson("errorMessages[0]").orElse(""),
         },
         sprintsSuggestion: []
       };
@@ -38,7 +38,7 @@ export default class SprintSuggestionHandler {
   }
 
   __mapSprints(successData) {
-    return Optional.ofNullable(successData).map("body").map("results").orElse([])
+    return Optional.ofNullable(successData).mapJson("body").mapJson("results").orElse([])
       .map(el => {
         return {
           value: el.value,

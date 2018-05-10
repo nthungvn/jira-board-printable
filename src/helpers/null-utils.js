@@ -1,9 +1,9 @@
 export default class NullUtils {
   static isNotNull(value) {
-    return value ? true : false;
+    return value != null;
   }
 
   static isNull(value) {
-    return !this.isNotNull(value);
+    return value == null;
   }
 }

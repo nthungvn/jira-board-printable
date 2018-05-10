@@ -21,7 +21,8 @@ export default new Vuex.Store({
     sprintsSuggestion: [],
     filters: {
       include: "",
-      exclude: ""
+      exclude: "",
+      isDoneItems: false,
     },
     viewBean: {
       navigation: true
@@ -45,6 +46,7 @@ export default new Vuex.Store({
     // Property
     selectedSprint: (state, value) => state.selectedSprint = value,
     typeOfIssue: (state, value) => state.typeOfIssue = value,
+    isDoneItems: (state, value) => state.filters.isDoneItems = value,
 
     // Action
     updateRestfulData: (state, value) => Object.assign(state, value),
