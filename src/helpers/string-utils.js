@@ -4,7 +4,7 @@ export default class StringUtils {
   }
 
   static isNotBlank(value) {
-    return !this.isBlank(value);
+    return !StringUtils.isBlank(value);
   }
 
   static isEmpty(value) {
@@ -12,6 +12,6 @@ export default class StringUtils {
   }
 
   static isNotEmpty(value) {
-    return !this.isEmpty(value);
+    return !StringUtils.isEmpty(value);
   }
 }
