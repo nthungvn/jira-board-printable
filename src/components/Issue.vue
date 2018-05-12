@@ -5,7 +5,7 @@
         <div class="id">
           <b v-if='value.parentIssueKey'>{{ value.parentIssueKey }}/</b><span>{{ value.issueKey }}</span>
         </div>
-        <span class="index end" v-if="index">{{ index }}</span>
+        <span class="index end" v-if="index && isShowOrdering">{{ index }}</span>
       </div>
 
       <div class="j-card-summary">
@@ -50,6 +50,10 @@ export default {
   computed: {
     cardType() {
       return this.$store.state.typeOfIssue == TypeOfIssue.STORY ? "j-card-rectangle" : "j-card-square";
+    },
+
+    isShowOrdering() {
+      return this.$store.state.viewBean.issue.ordering;
     }
   }
 };

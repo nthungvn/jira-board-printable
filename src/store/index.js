@@ -25,11 +25,15 @@ export default new Vuex.Store({
       isDoneItems: false,
     },
     viewBean: {
-      navigation: true
+      navigation: true,
+      issue: {
+        ordering: true
+      }
     }
   },
 
   getters: {
+    teamName: state => state.teamName,
     selectedSprint: state => state.selectedSprint,
     isError: state => state.errorHandling.isError,
     errorMessage: state => state.errorHandling.errorMessage,
@@ -47,6 +51,7 @@ export default new Vuex.Store({
     selectedSprint: (state, value) => state.selectedSprint = value,
     typeOfIssue: (state, value) => state.typeOfIssue = value,
     isDoneItems: (state, value) => state.filters.isDoneItems = value,
+    toggleShowIssueOrdering: (state, value) => state.viewBean.issue.ordering = value,
 
     // Action
     updateRestfulData: (state, value) => Object.assign(state, value),
