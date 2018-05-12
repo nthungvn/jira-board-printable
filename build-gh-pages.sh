@@ -15,4 +15,4 @@ rm -r temp/
 git add -f index.html static/ dist/
 git commit -m "$1"
 git push origin gh-pages
-git co master
+git checkout master
