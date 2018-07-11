@@ -22,20 +22,18 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 import TypeOfIssue from "./enums/type-of-issue";
 
 export default {
   data() {
-    return {
-    };
+    return {};
   },
 
-  methods: {
-  },
+  methods: {},
 
   computed: {
-    ...mapGetters(['isError', 'errorMessage', 'issues']),
+    ...mapGetters(["isError", "errorMessage", "issues"]),
 
     /**
      * Supports to renders cards in view

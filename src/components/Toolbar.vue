@@ -24,27 +24,24 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import { mapMutations } from 'vuex';
+import { mapGetters } from "vuex";
+import { mapMutations } from "vuex";
 import SprintSearchHandler from "../handlers/sprint-search-handler";
 import SprintSuggestionHandler from "../handlers/sprint-suggestion-handler";
 import TypeOfIssue from "../enums/type-of-issue";
 
 export default {
-  props: {
-  },
+  props: {},
 
   data() {
     return {
       searchValue: "",
       typingTimer: undefined
-    }
+    };
   },
 
   methods: {
-    ...mapMutations([
-      'toggleNavigation'
-    ]),
+    ...mapMutations(["toggleNavigation"]),
 
     openPrintDialog() {
       window.print();
@@ -60,11 +57,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
-      'selectedSprint',
-      'numberOfIssues',
-      'sprintsSuggestion'
-    ]),
+    ...mapGetters(["selectedSprint", "numberOfIssues", "sprintsSuggestion"]),
 
     story() {
       return TypeOfIssue.STORY;
@@ -79,7 +72,7 @@ export default {
         return this.$store.state.selectedSprint;
       },
       set(value) {
-        this.$store.commit('selectedSprint', value);
+        this.$store.commit("selectedSprint", value);
       }
     },
 
@@ -88,7 +81,7 @@ export default {
         return this.$store.state.typeOfIssue;
       },
       set(value) {
-        this.$store.commit('typeOfIssue', value);
+        this.$store.commit("typeOfIssue", value);
       }
     }
   },
@@ -101,9 +94,8 @@ export default {
       }, 1000);
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
-
 </style>
