@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
   computed: {
@@ -23,9 +23,7 @@ export default {
       isShow: "isShowNavigation"
     }),
 
-    ...mapGetters([
-      "teamName",
-    ]),
+    ...mapGetters(["teamName"]),
 
     includes: {
       get() {
@@ -47,11 +45,11 @@ export default {
 
     isDoneItems: {
       get() {
-        return this.$store.state.filters.isDoneItems
+        return this.$store.state.filters.isDoneItems;
       },
 
       set(value) {
-        this.$store.commit("isDoneItems", value)
+        this.$store.commit("isDoneItems", value);
       }
     },
 
@@ -64,11 +62,12 @@ export default {
       }
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
-.filters, .global-settings {
+.filters,
+.global-settings {
   padding: 0 1em;
 }
 </style>
