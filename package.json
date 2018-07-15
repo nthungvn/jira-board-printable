@@ -1,7 +1,7 @@
 {
   "name": "jira-board-printable",
   "description": "Every sprint we need to wait our PO activate the sprint before we can print all tasks and stories. Now we will supported the team can print all tasks and stories of specifics sprint witout waiting our PO.",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "author": "Hung Nguyen <thaihung1209@yahoo.com.vn>",
   "license": "MIT",
   "private": true,
