@@ -9,12 +9,12 @@ Vue.http.headers.common['Authorization'] = process.env.API_AUTHORIZATION;
 const customActions = {
   searchIssues: {
     method: 'GET',
-    url: 'api/2/search'
+    url: 'rest/api/2/search'
   },
 
   getFieldSuggestion: {
     method: 'GET',
-    url: 'api/2/jql/autocompletedata/suggestions'
+    url: 'rest/api/2/jql/autocompletedata/suggestions'
   }
 };
 
