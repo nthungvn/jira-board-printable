@@ -31,7 +31,7 @@ export default class IssueFilter {
   __isNotDone(issue) {
     return !Optional.ofNullable(issue)
       .map(issue => issue.status)
-      .map(status => status === "Resolved" || status === "Closed")
+      .map(status => status === "Resolved" || status === "Closed" || status === "Done")
       .orElse(false);
   }
 }

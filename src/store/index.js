@@ -22,7 +22,7 @@ export default new Vuex.Store({
     filters: {
       include: "",
       exclude: "",
-      isDoneItems: false,
+      isDoneItems: true,
     },
     viewBean: {
       navigation: true,
