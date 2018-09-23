@@ -48,6 +48,7 @@ export default new Vuex.Store({
 
   mutations: {
     // Property
+    teamName: (state, value) => state.teamName = value,
     selectedSprint: (state, value) => state.selectedSprint = value,
     typeOfIssue: (state, value) => state.typeOfIssue = value,
     isDoneItems: (state, value) => state.filters.isDoneItems = value,

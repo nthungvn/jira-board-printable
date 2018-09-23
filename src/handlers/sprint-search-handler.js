@@ -1,8 +1,8 @@
 import Jira from '../configs/vue-resource';
 import IssueHandler from './issue-handler';
-import TypeOfIssue from '../enums/type-of-issue';
 import Optional from '../helpers/optional';
 import Store from '../store';
+import JqlBuilder from '../helpers/jql-builder';
 
 export default class SprintSearchHandler {
   constructor(selectedSprint) {
@@ -16,7 +16,11 @@ export default class SprintSearchHandler {
   execute() {
     let payload = {};
     Jira.searchIssues({
-      jql: `Team = "${Store.state.teamName}" AND issuetype in standardIssueTypes() AND Sprint = ${this.selectedSprint} ORDER BY Rank ASC`,
+      jql: JqlBuilder.createInstance().team(Store.state.teamName).and()
+        .issueType("standardIssueTypes()")
+        .and().sprint(this.selectedSprint)
+        .orderAsc("Rank")
+        .toString(),
       fields: 'priority,issuetype,summary,assignee,subtasks,customfield_10002,status'
     }).then(success => {
       payload = {

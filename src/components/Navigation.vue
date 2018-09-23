@@ -8,7 +8,7 @@
       </v-form>
       <v-subheader class="mt-3">GLOBAL SETTINGS</v-subheader>
       <v-form class="global-settings">
-        <v-text-field label="Team" placeholder="Team name" :value="teamName" disabled></v-text-field>
+        <v-text-field label="Team" placeholder="Team name" v-model="teamName"></v-text-field>
         <v-checkbox label="Show ordering" color="primary" v-model="showOrdering"></v-checkbox>
       </v-form>
     </v-navigation-drawer>
@@ -23,7 +23,7 @@ export default {
       isShow: "isShowNavigation"
     }),
 
-    ...mapGetters(["teamName"]),
+    ...mapGetters([]),
 
     includes: {
       get() {
@@ -59,6 +59,15 @@ export default {
       },
       set(value) {
         this.$store.commit("toggleShowIssueOrdering", value);
+      }
+    },
+
+    teamName: {
+      get() {
+        return this.$store.state.teamName;
+      },
+      set(value) {
+        this.$store.commit("teamName", value);
       }
     }
   }
