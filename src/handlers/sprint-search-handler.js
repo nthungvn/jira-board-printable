@@ -16,7 +16,9 @@ export default class SprintSearchHandler {
   execute() {
     let payload = {};
     Jira.searchIssues({
-      jql: JqlBuilder.createInstance().team(Store.state.teamName).and()
+      jql: JqlBuilder.createInstance()
+      // TODO need to add team name back
+      // .team(Store.state.teamName).and()
         .issueType("standardIssueTypes()")
         .and().sprint(this.selectedSprint)
         .orderAsc("Rank")
