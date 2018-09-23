@@ -6,7 +6,8 @@ import Tasks from '../components/Tasks.vue';
 
 Vue.use(VueRouter);
 
-const routes = [{
+const routes = [
+  {
     path: "",
     component: Stories
   },
